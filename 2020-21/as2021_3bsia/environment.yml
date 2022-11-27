@@ -1,0 +1,5 @@
+name: cling
+channels:
+  - defaults
+dependencies:
+  - xeus-cling

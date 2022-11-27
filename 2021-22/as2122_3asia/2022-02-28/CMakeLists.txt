@@ -1,0 +1,1 @@
+add_executable(potenza potenza.cpp)

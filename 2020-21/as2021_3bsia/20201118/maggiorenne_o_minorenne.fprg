@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="massi"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2020-11-18 09:19:24 AM"/>
+        <attribute name="created" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTg7MDk6MDM6NDMgQU07MzE4NA=="/>
+        <attribute name="edited" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTg7MDk6MTk6MjQgQU07MTszMjk4"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="eta" type="Integer" array="False" size=""/>
+            <input variable="eta"/>
+            <if expression="eta &gt;= 18">
+                <then>
+                    <output expression="&quot;Maggiorenne&quot;" newline="True"/>
+                </then>
+                <else>
+                    <output expression="&quot;Minorenne&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Esercitazione per il compito</title>
+    </head>
+    <body>
+        <h1>Argomenti</h1>
+        
+        <ol id="elencoEsterno">
+            <li id="1">Inserire script nelle pagine HTML</li>
+            <li id="2">Manipolare il Document Object Model
+                <ol>
+                    <li>Ricercare elementi</li>
+                    <li id="creare">Creare nuovi elementi</li>
+                    <li id="aggiungere">Aggiungere elementi</li>
+                    <li class="sfondoGiallo">Modificare lo stile</li>
+                    <li id="eventi">Aggiungere eventi</li>
+                </ol>
+            </li>
+        </ol>
+        <script>
+            var li1 = document.getElementsByTagName("li")[0];
+            li1.onclick = function() {
+              alert('tag script');
+            };
+            
+            /* 
+               Aggiungere un terzo "list item"
+               in cui si richiede il "Uso dei costrutti di iterazione"
+             */
+             var ol = document.getElementById("elencoEsterno");
+             var li3 = document.createElement("li");
+             li3.innerHTML = 'Uso dei costrutti di iterazione';
+             ol.appendChild(li3);
+             
+             /*
+                Modificare il colore di backgroud degli elementi
+                con id "creare", "aggiungere" e "eventi"
+            */
+            
+            document.getElementById("creare")
+                .style.backgroundColor = "red";
+            document.getElementById("aggiungere")
+                .style.backgroundColor = "green";
+            document.getElementById("eventi")
+                .style.backgroundColor = "blue";
+                
+            /*
+                Modificare il colore in primo piano
+            */
+            document.getElementById("aggiungere")
+                .style.color = "yellow";
+                
+                
+            document.
+                getElementsByClassName("sfondoGiallo")[0].
+                    style.
+                        backgroundColor='yellow';
+            
+            var li8 = document.getElementsByTagName('li')[7];
+    
+            li8.onmouseover = function () {
+                li8.style.backgroundColor = 'brown';
+                li8.style.color = 'yellow';
+            };
+    
+            li8.onmouseout = function () {
+                li8.style.backgroundColor = 'white';
+                li8.style.color = 'black';
+            };
+            
+            
+            // iteriamo per tutti gli elementi di tipo
+            // 'li' e ne stampiamo il contenuto
+            // sulla console
+            var listaDeiNodiLi = 
+                document.getElementsByTagName('li');
+            for (var i = 0; i < listaDeiNodiLi.length; i++) {
+                var nodo = listaDeiNodiLi[i];
+                var contenuto = nodo.innerHTML;
+                console.log(contenuto);
+            }
+            
+        </script>
+    </body>
+</html>

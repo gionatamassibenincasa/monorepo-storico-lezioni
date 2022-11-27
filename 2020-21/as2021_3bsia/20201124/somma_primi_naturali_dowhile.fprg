@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="massi"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2020-11-24 10:27:43 AM"/>
+        <attribute name="created" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTk7MDk6NDk6MjAgQU07MzE5MA=="/>
+        <attribute name="edited" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMjQ7MTA6Mjc6NDMgQU07NTszMjkx"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="somma, contatore, N" type="Integer" array="False" size=""/>
+            <output expression="&quot;Somma dei numeri da 0 a N. Immetti N:&quot;" newline="True"/>
+            <input variable="N"/>
+            <assign variable="somma" expression="0"/>
+            <assign variable="contatore" expression="1"/>
+            <do expression="contatore &lt;= N">
+                <assign variable="somma" expression="somma + contatore"/>
+                <assign variable="contatore" expression="contatore + 1"/>
+            </do>
+            <output expression="&quot;La somma dei primi &quot; &amp; N &amp; &quot; numeri vale &quot; &amp; somma" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

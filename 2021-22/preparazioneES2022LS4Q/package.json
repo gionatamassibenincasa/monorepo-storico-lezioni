@@ -1,0 +1,22 @@
+{
+  "name": "domande_es22",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx --node-arg=--inspect-brk asciidoctor-revealjs -v spunti_informatica.adoc",
+    "compila": "npx asciidoctor-revealjs spunti_informatica.adoc",
+    "compilaConNote": "npx asciidoctor-revealjs -a revealjs_showNotes=true spunti_informatica.adoc",
+    "visualizza": "npm run compila && cp spunti_informatica.html public/index.html && firefox public/index.html",
+    "pubblica": "npm run visualizza && surge public http://es-22-4q-inf.surge.sh && firefox http://es-22-4q-inf.surge.sh",
+    "visualizzaConNote": "npm run compilaConNote && cp spunti_informatica.html public/index.html && firefox public/index.html",
+    "pubblicaConNote": "npm run compilaConNote && cp spunti_informatica.html public/index.html && surge public http://es-22-4q-inf-note.surge.sh && firefox http://es-22-4q-inf-note.surge.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@asciidoctor/reveal.js": "^5.0.0-rc.1",
+    "asciidoctor": "^2.2.6"
+  }
+}

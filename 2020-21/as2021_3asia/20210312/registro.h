@@ -1,0 +1,2 @@
+void inserisciStudente();
+void stampaStudenti();

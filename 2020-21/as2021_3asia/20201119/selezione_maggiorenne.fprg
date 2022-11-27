@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="massi"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2020-11-19 09:26:27 AM"/>
+        <attribute name="created" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTk7MDk6MTA6MzMgQU07MzE4Mg=="/>
+        <attribute name="edited" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTk7MDk6MjY6MjcgQU07MTszMzAw"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="anni" type="Integer" array="False" size=""/>
+            <declare name="stato" type="String" array="False" size=""/>
+            <output expression="&quot;Quanti anni hai?&quot;" newline="True"/>
+            <input variable="anni"/>
+            <if expression="anni &lt; 18">
+                <then>
+                    <assign variable="stato" expression="&quot;minorenne&quot;"/>
+                </then>
+                <else>
+                    <assign variable="stato" expression="&quot;maggiorenne&quot;"/>
+                </else>
+            </if>
+            <output expression="&quot;Sei &quot; &amp; stato" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="massi"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2020-11-18 09:55:23 AM"/>
+        <attribute name="created" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTg7MDk6MzI6MzYgQU07MzE4OA=="/>
+        <attribute name="edited" value="bWFzc2k7bWFzc2ktQXNwaXJlLVYzOzIwMjAtMTEtMTg7MDk6NTU6MjMgQU07MjszMjk4"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="contatore, somma, N" type="Integer" array="False" size=""/>
+            <output expression="&quot;Qual &#232; l'ultimo numero?&quot;" newline="True"/>
+            <input variable="N"/>
+            <assign variable="somma" expression="0"/>
+            <assign variable="contatore" expression="1"/>
+            <while expression="contatore &lt;= N">
+                <assign variable="somma" expression="somma + contatore"/>
+                <assign variable="contatore" expression="contatore + 1"/>
+            </while>
+            <output expression="&quot;La somma dei primi &quot; &amp; N &amp; &quot; numeri naturali &#232; &quot; &amp; somma" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

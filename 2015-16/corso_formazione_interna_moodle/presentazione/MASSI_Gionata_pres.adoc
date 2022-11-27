@@ -1,0 +1,58 @@
+Gionata *Massi* - Docente a tempo determinato abilitato all'insegnamento dell'Informatica
+==========================================================================================
+:author: Gionata Massi
+:backend: slidy
+:max-width: 45em
+:data-uri:
+:icons:
+
+Premere la barra spaziatrice o la freccia a sinistra per continuare la presentazione.
+
+Anni '80
+---------
+
+Per il mio quarto compleanno mio padre mi regalo' un "home computer"o' un "home computer"o' un "home computer".
+
+L'interfaccia testuale non nascondeva la complessita' della macchina e i manuali utente ne illustravano il funzionamento.
+
+Basic, codice mnemonico e inserimento dei istruzioni e dati in notazione esadecimale erano le mie sfide intellettuali da bambino!
+
+Obiettivo era il riuscire a disegnare con "primitive" geometriche e risolvere equazioni e problemi dei compiti di matematica.
+
+Si e' accesa in me la passione per lo spiegare come risolvere (modelli di) problemi alle macchine.
+
+Anni '90
+--------
+
+Scelsi di studiare al Liceo Scientifico con la sperimentazione del "Piano Nazionale Informatica".
+
+L'insegnamento dell'informatica fu carente, ma ho avuto modo di leggere i primi manuali sul Pascal e sul linguaggio C.
+
+Dal C al sistema operativo GNU/Linux il passo fu breve. Nasce l'impegno etico per il software libero.
+
+I problemi da risolvere al calcotore si fecero diversi e i miei successi furono un programma in Pascal per l'auto-apprendimento del codice Morse, un risolutore "step by step" di equazioni in C e qualche "demo" in assembly per giocare con la grafica.
+
+
+Anni 2000
+---------
+
+Mi piacevano i sistemi complessi per la manipolazione delle informazioni, cosi' mi sono iscritto al corso di laurea in Ingegneria Elettronica con indirizzo "*Calcolatori Elettronici*".
+
+Al secondo anno di corso ho scoperto l'uso della logica come linguaggio di programmazione e modello di calcolo. Ho scoperto come certi linguaggi artificiali siano strumenti per pensare.
+
+Ho visto per la prima volta l'uso strumentale dell'informatica per la gestione d'informazioni di organizzazioni e mi è capitato per la prima volta di realizzare applicazioni gestionali ed essere pagato per farlo.
+
+Ho appreso nuovi modi di pensare ai problemi e alla formalizzazione di modelli e metodi di risoluzione. E ho compreso che "dobbiamo sfatare il mito che l'informatica riguarda i computer. L'informatica non riguarda i computer piu' di quanto l'astronomia riguarda i telescpi, la biologia i microscopi o la chimica i becher e le provette."
+
+
+Anni '10-'15
+------------
+
+Lo studio dei modelli e dei metodi è proseguito con il Dottorato di Ricerca. In questo periodo il mio tutor mi ha offerto la sfida di spiegare ad esseri umani in carne ed ossa, ben più complessi e meno deterministici delle macchine, i concetti ben formalizzati della Ricerca Operativa. Questo sia in esercitazioni di laboratorio che con una docenza a contratto con una Universita' telematica.
+
+La sfida è stata impegnativa così ho presentato domanda per l'inserimento nelle terze fasce delle graduatorie d'Istituto.
+L'esperienza d'insegnamento dell'Informatica nella Scuola Media Superiore mi ha fatto avvicinare alla professione docente cosi' ho intrapreso il percorso di Tirocinio Formativo Attivo abilitandomi all'insegnamento dell'Informatica.
+
+
+
+

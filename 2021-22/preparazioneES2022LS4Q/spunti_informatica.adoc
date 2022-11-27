@@ -1,0 +1,746 @@
+= Esame di Stato 2022: Spunti di informatica
+:author: Gionata Massi <gionata.massi@savoiabenincasa.it>
+:date: 2022-05-20
+:revealjs_plugin_notes: enable
+//:revealjs_showNotes: false
+:icons: font
+:revealjsdir: .
+:revealjs_theme: sky
+//:revealjs_autoSlide: 5000
+:revealjs_history: 
+:revealjs_fragmentInURL: 
+:revealjs_viewDistance: 5
+//:revealjs_width: 1408
+//:revealjs_height: 792
+:revealjs_controls: 
+:revealjs_controlsLayout: edges
+:revealjs_controlsTutorial: 
+:revealjs_hash:
+:revealjs_slideNumber: c/t
+:revealjs_showSlideNumber: speaker
+:revealjs_autoPlayMedia: true
+:revealjs_defaultTiming: 42
+//:revealjs_transitionSpeed: fast
+//:revealjs_parallaxBackgroundImage: images/background-landscape-light-orange.jpg
+//:revealjs_parallaxBackgroundSize: 4936px 2092px
+//:customcss: css/presentation.css
+:imagesdir: images
+:source-highlighter: highlightjs
+:highlightjs-theme: plugin/highlight/qtcreator-light.css
+// we want local served font-awesome fonts
+:iconfont-remote:
+//:iconfont-name: fonts/fontawesome/css/all
+:stem: latexmath
+:hide-uri-scheme:
+
+== Rappresentazione dei numeri al calcolatore
+
+* Notazioni posizionali / virgola fissa
+* Notazione in virgola mobile
+* Insiemi latexmath:[\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}]
+* Proprietà (algebra e rappresentazioni)
+* Algoritmi di conversione
+
+[.notes]
+--
+La rappresentazione dei numeri nei calcolatori moderni è basata su due soli simboli. Le trasmissioni numeriche delle informazioni, come quelle delle reti dati, usano anche altre basi, di solito potenze del due.
+Per questo è importarte che un informatico conosca le rappresentazioni posizionali, in particolare quelle che usano basi che sono potenze del due.
+
+I calcolatori usano un numero finito di simboli per rappresentare i numeri dei vari insiemi numerici e pertanto la cardinalità dei numeri rappresentabili è limitata. latexmath:[n] cifre binarie, infatti, determinano latexmath:[2^n] configurazioni.
+
+La rappresentazione degli interi è esatta ed univoca quando il numero è nell'intervallo rappresentabile usando una notazione posizionale senza segno o in complemento a due alla n.
+Con la rappresentazione in virgola fissa ad m cifre decimali, si riescono a rappresentare esattamente le frazioni la cui parte frazionaria è espressa da latexmath:[\sum_{i = 1}^m \frac{d_i}{2^i}], dove latexmath:[d_i \in \{0, 1\}].
+
+Si pone il problema di rappresetare numeri molto grandi o molto piccoli con la posizione fissa della virgola per cui per rappresentare i numeri reali si usa la convenzione della virgola mobile, che è simile alla notazione scientifica.
+Del numero interessano il segno, il modulo della mantissa normalizzata, ossia con parte intera compresa tra 1 e latexmath:[b - 1], e dell'esponente da assegnare alla base. Questo esponente corrisponde al numero di posizioni in cui spostare la virgola per riscrivere il numero senza moltiplicazioni.
+Si nota che nel caso di binario la mantissa normalizzata è sempre 1 e quindi tale numero viene omesso. L'esponente può essere positivo o negativo e, nella convenzione IEEE754 per evitare di indicare un bit per il segno si è scelto di usare una notazione in eccesso.
+
+Le notazioni con un numero finito di cifre determinano degli errori di troncamento, che possono essere errori di approssimazione dei numeri con la virgola, ed errori nelle operazioni (_cancellazioni_, _tracimazioni_, _underflow_).
+
+Le proprietà dell'algebra, in generale, non valgono per le rappresentazioni con un numero finito di cifre.
+--
+
+=== Rappresentazioni (esatte)
+
+* Sottoinsieme dei naturali
++
+[latexmath]
+++++
+N = \sum_{i=0}^{n-1} d_i b^i, \quad d_i \in \{0, 1, \ldots, b - 1\}
+++++
+
+* Sottoinsieme degli interi
++
+[latexmath]
+++++
+N = -2^{n-1} + \sum_{i=0}^{n-2} d_i b^i, \quad d_i \in \{0, 1, \ldots, b - 1\}
+++++
+
+[.notes]
+--
+. Rappresentazione dei numeri naturali in una base b, dove b è maggiore di 1.
+
+. Rappresentazione in complemento a 2 alla n dei numeri interi. Se rappresento a e -a, la loro somma è latexmath:[2^n].
+
+**Complemento a 2 alla n**
+
+Devo rappresentare un numero con stem:[n] bit e conservare la proprietà che la somma di due numeri opposti sia pari a 0. Per ottenere questo posso usare un bit ulteriore, quello in posizione stem:[n] indicando la posizione più a destra con l'indice 0, e imporre che stem:[m + \tilde{m} = 2^n].
+
+stem:[m + \tilde{m} = \left(1 \underbrace{0\ldots 0}_{n\ \text{zeri}} \right)_2]
+
+Siccome il bit stem:[n]-esimo non può essere rappresentato con stem:[n] cifre binarie, allora stem:[2^n] e stem:[0] non sono distinguibili.
+
+Il valore dei bit di stem:[\tilde{m}] è stem:[\tilde{m} = 2^n - m] e questo è il motivo del nome della codifica.
+
+**Algoritmo di calcolo di stem:[\tilde{m}]**
+
+stem:[m + \tilde{m} = 2^n =\left(1 \underbrace{0\ldots 0}_{n\ \text{zeri}} \right)_2 = (2^{n}-1)+1=\left( \underbrace{1\ldots 1}_{n\ \text{uni}} \right)_2 + 1]
+
+da cui
+
+stem:[\tilde{m} = \bar{m} + 1]
+
+dove
+
+stem:[\bar{m} + m = (2^{n}-1)=\left( \underbrace{1\ldots 1}_{n\ \text{uni}} \right)_2]
+
+Il calcolo di stem:[\bar{m}] si basa sul fatto che stem:[1 = 1 + 0] e stem:[1 = 0 + 1], ossia sulla somma di cifre diverse, dette _negate_: stem:[\bar 0 = 1], stem:[\bar 1 = 0].
+
+__Per calcolare stem:[\tilde{m}] nego le cifre binarie poi aggiungo 1.__
+
+
+**Valore del coefficiente di stem:[d_{n-1}]**
+
+Per mantenere invariati gli algoritmi, un numero rappresentato in complemento a 2 alla stem:[n] ha valore:
+
+stem:[m = \sum_{i = 0}^{n-1} d_i \cdot e(i)]
+
+dove stem:[d_i] è la cifra binaria in posizione stem:[i]-esima ed stem:[e(i)] è una valore non rappresentabile con stem:[i] - 1 cifre.
+
+Per un numero stem:[m_0^+] con la cifra binaria in posizione stem:[n - 1] nulla continua a valere:
+
+stem:[m_{0}^{+} = \sum_{i = 0}^{n-2} d_i \cdot 2^i]
+
+quindi un numero generico è espresso come
+
+stem:[m = d_{n-1} \cdot e(n-1) + \sum_{i = 0}^{n-2} d_i \cdot 2^i]
+
+Impongo
+
+stem:[m + \tilde{m} = 0]
+
+stem:[\left(\sum_{i = 0}^{n-2} d_i \cdot 2^i \right) + e(n-1) + \left(\sum_{i = 0}^{n-2} \bar{d_i} \cdot 2^i \right) + 1 = 0]
+
+stem:[\left(\sum_{i = 0}^{n-2} (d_i + \bar{d_i}) \cdot 2^i \right)+ e(n-1)  + 1 = 0]
+
+stem:[\left(\sum_{i = 0}^{n-2}  2^i \right)+ e(n-1)  + 1 = 0]
+
+stem:[2^{n-1} - 1 + e(n-1)  + 1 = 0]
+
+stem:[2^{n-1}  + e(n-1)  = 0 \implies e(n-1) = -2^{n-1}]
+
+In definitiva, un numero in complemento a 2 alla n vale
+
+stem:[m = -1 \cdot d_{n-1} \cdot 2^{n-1} + \sum_{i = 0}^{n-2} d_i \cdot 2^i]
+
+Per altre informazioni vedere https://it.wikipedia.org/wiki/Complemento_a_due
+--
+
+
+=== Rappresentazioni (approx)
+
+* Sottoinsieme dei razionali non negativi
++
+[latexmath]
+++++
+N = \sum_{i=-m}^{n-1} d_i b^i, \quad d_i \in \{0, 1, \ldots, b - 1\}
+++++
+
+* Sottoinsieme dei reali, virgola mobile
++
+[latexmath]
+++++
+N = (-1)^s \cdot 1.\bar{M} \cdot 2^{e-k}, \quad \ldots
+++++
+
+[.notes]
+--
+. Rappresentazione dei numeri razionali con un numero stem:[m] finito di cifre dopo la virgola. Detto anche "virgola fissa".
+
+
+. Rappresentazione dei numeri reali in virgola mobile. latexmath:[s] è il segno, latexmath:[M] la parte frazionaria della mantissa normalizzata ed latexmath:[e] l'esponete in eccesso latexmath:[k].
+
+Vedere:
+
+* https://it.wikipedia.org/wiki/Teorema_di_rappresentazione_dei_numeri_reali
+* https://it.wikipedia.org/wiki/Rappresentazione_dei_numeri_relativi#Eccesso_N
+* https://it.wikipedia.org/wiki/Numero_in_virgola_mobile
+* https://it.wikipedia.org/wiki/IEEE_754
+--
+
+
+=== Proprietà
+* Univocità di rappresentazione
+** interi
+** razionali e reali (virgola mobile)
+* Errori di troncamento
+** rappresentazione con un numero finito di simboli
+* Propagazione degli errori
+* Numeri in virgola mobile e proprietà algebriche
+
+[.notes]
+--
+I numeri interi hanno una rappresentazione univoca nelle formule 1 e 2.
+
+I numeri razionali possono avere infinite cifre ed esistono casi (numeri periodici con periodo latexmath:[b - 1]) con due rappresentazioni dello stesso valore.
+
+Si nota che un numero finito di cifre limita i valori minimo e massimo e la quantità di numeri rappresentabili (con latexmath:[n] cifre in base latexmath:[b] ci sono latexmath:[b^n] configurazioni).
+
+Rappresentando un numero con meno cifre di quante necessarie si commette un errore di rappresentazione. Un tale è detto errore di troncamento e, nelle rappresentazioni in virgola fissa, è limitato superiormente da latexmath:[2^{-m}].
+
+Nelle operazioni di addizione e sottrazione gli errori assoluti si sommano.
+Nella moltiplicazione e nella divisione gli errori relativi si sommano.
+
+Le operazioni algebriche in virgola mobile, quando coinvolgono più di due operandi, non sono non né commutative né associative. Il problema è causato dal troncamento di cifre che causa cancellazioni.
+--
+
+=== Algoritmi di conversione tra basi
+
+* Parte intera stem:[\lfloor x \rfloor] di stem:[x, x \geq 0].
+* Parte frazionaria stem:[x - \lfloor x \rfloor] di stem:[x, x \geq 0].
+* Da latexmath:[b_1 = 2] a latexmath:[b_2 = 2^n], dove latexmath:[n=2,3,4]
+* Da latexmath:[b_1 = 2^n] a latexmath:[b_2 = 2], dove latexmath:[n=2,3,4]
+* Da latexmath:[b_1 = 2^n] a latexmath:[b_2 = 2^m] passando per latexmath:[b_2 = 2], latexmath:[(n, m) \in \{2, 3, 4\}^2 \wedge n \neq m]
+
+[.notes]
+--
+**Parte intera**
+
+stem:[N=(d_{n-1}d_{n-2}\cdots d_2 d_1 d_0)_b]
+
+stem:[N=d_{n-1} b^{n-1} + d_{n-2} b^{n-2}  + \cdots d_2 b^{2} + d_1 b^{1} + d_0 b^0 =]
+
+stem:[ =(d_{n-1} b^{n-2} + d_{n-2} b^{n-3} + \cdots + d_2 b^{1} + d_1 b^{0})\cdot b + d_0]
+
+L'ultima cifra di un qualsiasi numero stem:[N] in base stem:[b] è data dal resto della divisione intera per stem:[b]. Il quoziente è la rappresentazione delle rimanenti stem:[{n-1}] cifre. Si può applicare il processo di determinazione dell'ultima cifra iterando il processo fino a quando il quoziente non è nullo.
+
+Per una descrizione formale dell'algoritmo, in linguaggio JavaScript,  vedi la diapositiva seguente.
+
+**Parte frazionaria**
+
+stem:[F=(0,d_{-1}d_{-2}\cdots d_{-m+1} d_{-m})_b]
+
+stem:[F=d_{-1} b^{-1} + d_{n-2} b^{-2} + \cdots + d_{-m+1} b^{-m+1} + d_{-m} b^{-m} =]
+
+stem:[=(d_{-1} + d_{-2} b^{-1} + \cdots d_{-m+1} b^{-m+2} + d_{-m} b^{-m+1}) / b]
+
+La prima cifra di un qualsiasi numero frazionario stem:[F] in base stem:[b] è data dalla parte intera della moltiplicazione del numero per stem:[b]. La parte frazionaria è la rappresentazione delle rimanenti stem:[{m-1}] cifre. Si può applicare il processo di determinazione della prossima cifra frazionaria iterando il processo fino a quando la nuova parte frazionaria non è nulla.
+
+Vedere due diapositive sotto.
+
+**Conversioni tra basi potenze del due**
+
+Le operazioni aritmetiche diventano operazioni di traslitterazione nel caso delle basi indicate.
+--
+
+=== Conversione -- JS
+
+```js
+/**
+  @param {Number} N un numero
+  @param {Number} b un numero detto base 
+  @returns {String} ...
+ */
+const converti = (N, b) => {
+    let rappresentazione = "";
+    while (N > 0) {
+        const ultimaCifra = N % b;
+        rappresentazione = ultimaCifra.toString(b) + rappresentazione;
+        N = (N - ultimaCifra) / b;
+    }
+    return rappresentazione;
+};
+```
+
+[.notes]
+--
+Converte un naturale stem:[N] nella rappresentazione in base stem:[b]
+
+Vedere https://observablehq.com/@gionatamassi-sb/numeri-senza-segno/2
+--
+
+=== Conversione -- JS
+
+```js
+/**
+  @param {Number} F un numero, 0 <= F < 1
+  @param {Number} b un numero detto base 
+  @returns {String} ...
+ */
+const converti = (F, b) => {
+    let rappresentazione = "0.";
+    while (F != 0) {
+        const primaCifra = Math.floor(F * b);
+        rappresentazione = rappresentazione + primaCifra.toString(b);
+        F = F * b - primaCifra;
+    }
+    return rappresentazione;
+};
+```
+[.notes]
+--
+Converte la parte frazionari stem:[F] nella rappresentazione in base stem:[b].
+
+L'algoritmo, se F fosse un numero dell'insieme reale o razionale, potrebbe non terminare (infinite cifre nella rappresentazione in base stem:[b]).
+
+Nel caso pratico però stem:[F] sarà sempre un numero rappresentato nella macchina con un numero finito di bit, quindi il programma termina!
+--
+
+== Radici di funzione
+
+* Teorema di esistenza degli zeri
+* Metodi di riduzione dell'intervallo di incertezza (bisezione)
+* Metodi che approssimano con rette (tangenti)
+
+[.notes]
+--
+Il problema di esistenza degli zeri può essere risolto se ammette almeno una soluzione.
+C'è un teorema (di Bolzano o degli zeri) che stabilisce l'esistenza di almeno un punto stem:[\alpha] 
+interno all'intervallo chiuso e limitato stem:[\left[a, b\right\]] in cui una funzione continua stem:[f] assume valore nullo se la funzione assume valori di segno opposto in stem:[a] e stem:[b].
+Sia stem:[f] una funzione continua nell'intervallo chiuso e limitato stem:[\left[a, b\right\]] tale che stem:[f(a) \cdot f(b) < 0]. Allora esiste stem:[\alpha \in (a, b)] tale che stem:[f(\alpha) = 0].
+
+Si vedano gli appunti  ``radici.pdf`` condivisi su Classroom!!!
+--
+
+=== Metodo di bisezione
+
+* Convergenza
+* Ordine di convergenza
+* Formula dell'iterata
+* Formula dell'errore
+
+[.notes]
+--
+Il metodo di bisezione converge sempre.
+
+L'ordine di convergenza è 1, ossia il rapporto tra l'errore al passo successivo e quello al passo precedente è costante e pari ad un mezzo.
+
+latexmath:[x_{k+1} = \frac{a_k + b_k}{2}]
+
+latexmath:[e_k = b_k - a_k].
+--
+
+=== Metodo delle tangenti (Newton)
+
+* Convergenza
+* Ordine di convergenza
+* Formula dell'iterata
+* Altre approssimazioni geometriche
+** Secanti
+** Corde
+
+[.notes]
+--
+Il metodo può divergere o oscillare, oltre che convergere.
+
+L'ordine di convergenza è due, a meno di trovare una radice che è anche un punto stazionario, ossia l'errore al passo precedente è circa il quadrato dell'errore al passo successivo. Se la derivata prima tende a zero l'ordine di convergenza diventa 1, sempre che converga.
+
+latexmath:[x _{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}]
+
+Si vedano gli appunti  ``radici.pdf`` condivisi su Classroom!!!
+--
+
+=== Iterate
+
+* latexmath:[x_{k+1} = \frac{a_k + b_k}{2}]
+* latexmath:[x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}]
+* latexmath:[x_{k+1} = g(x_k)]
+
+[.notes]
+--
+1. Metodo di bisezione
+2. Metodo di Newton
+3. Metodi di punto fisso.
+
+I metodi di punto fisso per questo problema spesso hanno la forma: latexmath:[x_{k+1} = x_k - h(x_k)]
+--
+
+=== Sorgenti radici -- JS
+
+```js
+/**
+ *
+ * @param {Function} f una funzione continua in [a, b]
+ * @param {Number} a l'estremo sinistro dell'intervallo di incertezza
+ * @param {Number} b l'estremo destro dell'intervallo di incertezza
+ * @param {Number} e1 tolleranza su asse delle ascisse
+ * @param {Number} e2 tolleranza su asse delle ordinate
+ * @param {Number} nmax numero massimo di iterazioni
+ * @returns {Number} ...
+ */
+const radice = (f, a, b, e1 = 1e-16, e2 = 1e-16, nmax = 10) => {
+  let f_a = f(a);
+  let f_b = f(b);
+  let s_a = Math.sign(f_a);
+  let s_b = Math.sign(f_b);
+  if (s_a === s_b) {
+    throw "Segni concordi nei due estremi.";
+  }
+  let x;
+  for (let iter = 0; iter < nmax && b - a >= e1; iter++) {
+    x = a + (b - a) / 2;
+    let f_x = f(x);
+    if (Math.abs(f_x) < e2) {
+      return x;
+    }
+    let s_x = Math.sign(f_x);
+    if (s_a === s_x) {
+      a = x;
+    } else {
+      b = x;
+    }
+  }
+  return x;
+};
+```
+
+[.notes]
+--
+Il programma realizza il metodo di bisezione.
+Per riconoscerlo, vediamo che la funzione ha come parametri la funzione stem:[f] e due estremi, stem:[a] e stem:[b].
+Poi viene verificata l'ipotesi del teorema di esistenza degli zeri relativa ai segni assunti dalla funzione agli estremi.
+Segue l'iterazione di aggiornamento del centro dell'intervallo di incertezza e di riduzione dello stesso in modo da mantenere valido stem:[f(a_k+1) = f(a_k)], che è la stessa cosa di assicurare stem:[f(a_k+1) \cdot f(b_k + 1) < 0].
+Il criterio di terminazione è triplice:
+
+* Numero di iterazioni minore del massimo stabilito;
+* Intervallo di incertezza maggiore o uguale di una tolleranza predefinita
+* valore della funzione calcolata nel nuovo centro dell'intervallo d'incertezza minore compreso in un intervallo di tolleranza.
+--
+
+=== Sorgenti radici -- JS
+
+```js
+/**
+ *
+ * @param {Function} f una funzione continua e derivabile in un intorno di x
+ * @param {Number} x il valore x_0
+ * @param {Function} f1 la derivata prima di f
+ * @param {Number} e1 tolleranza su asse delle ascisse
+ * @param {Number} e2 tolleranza su asse delle ordinate
+ * @param {Number} nmax numero massimo di iterazioni
+ * @returns {Number} ...
+ */
+const radice = (f, x, f1, e1 = 1e-16, e2 = 1e-16, nmax = 10) => {
+  let err = e1 + 1; // permette di entrare nel ciclo
+  for (let iter = 0; iter < nmax && err >= e1; iter++) {
+    let f_x = f(x);
+    if (Math.abs(f_x) < e2) {
+      return x;
+    }
+    let f1_x = f1(x);
+    let xp = x;
+    x = xp - f_x / f1_x;
+    err = Math.abs(x - xp);
+  }
+  return x;
+};
+```
+
+[.notes]
+--
+Il programma realizza il metodo di Newton per la ricerca delle radici.
+Per riconoscerlo, vediamo che la funzione ha come parametri la funzione stem:[f], la sua derivata prima stem:[f'] e una stima iniziale stem:[x].
+Nell'algoritmo non vi è alcun meccanismo per riconoscere oscillazioni, divergenza o raggiunta convergenza.
+Fino a che non si è raggiunto il numero massimo di iterazioni, oppure il valore stem:[f(x_k)] è in un intervallo di tolleranza, la stima della radice viene aggiornata secondo l'iterata: stem:[x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)}].
+--
+
+=== Interpretazione grafica
+
+image::Bisection_anime.gif[Metodo di bisezione]
+
+[.notes]
+--
+L'animazione rappresenta una funzione continua stem:[f] in un itervallo stem:[[a, b\]] che assume segni di valore opposto negli estremi.
+Viene illustrato il processo di determinazione del valore centrale dell'intervallo d'incertezza, stima della radice, e di riduzione dello stesso per le prime tre iterazioni del metodo.
+--
+
+=== Interpretazione grafica
+
+image::Metodo_de_Newton_anime.gif[Metodo di Newton]
+
+[.notes]
+--
+L'animazione rappresenta una funzione continua stem:[f] che viene valutata in un punto stem:[x_1]. Viene tracciata la retta tangente stem:[f] in stem:[(x_1, f(x_1))]. L'intersezione della tangente con l'asse delle ascisse viene indicato come stem:[x_1] e a partire da questo punto viene nuovamente valutata la funzione, tracciata la nuova tangente e determinata la sua intersezione stem:[x_3] con l'asse delle ascisse.
+
+Il processo è l'equivalente geometrico del metodo di Newton.
+--
+
+== Derivazione numerica
+
+* Limite del rapporto incrementale e approssimazione finita
+* Differenze in avanti (latexmath:[h > 0]) all'indietro (latexmath:[h < 0])
+* Differenze centrali (formula)
+* Calcolo di latexmath:[2\cdot h] nel codice sorgente
+* Scelta di latexmath:[h] per minimizzare l'errore di troncamento
+
+[.notes]
+--
+La derivazione simbolica è un'operazione che si presta bene al calcolo da parte di un essere umano e anche da parte di un _computer algebra system_.
+Questo, però, richiede di conoscere in modo analitico la funzione.
+
+Purtroppo alle volte la funzione calcolabile con un procedimento algoritmico senza conoscere una formula chiusa e quindi non è possibile derivare per via simbolica la derivata.
+
+La procedura per il calcolo della derivata si può definire a partire dalla definizione, sostituendo al limite un rapporto incrementale finito.
+
+[stem]
+++++
+f'(x) \approx \frac{f(x+h) - f(x)}{h}
+++++
+
+stem:[h] dovrebbe essere molto piccola ma possono sorgere vari problemi con i calcoli in virgola mobile.
+
+Un primo problema è dato dal fatto che, anche se stem:[x] e stem:[h] sono rappresentabili con i numeri in virgola mobile, stem:[x + h] potrebbe non esserlo.
+Si crea quindi una discrepanza tra il reale incremento al numeratore e quello al denominatore.
+
+Considerando le operazioni in virgola macchina, sempre che nella somma non vi siano cancellazioni, quindi stem:[h] diviene nulla, si può calcolare l'incremento effettivo.
+
+
+L'idea che dobbiamo avere è che stem:[h] va scelto in modo tale che stem:[x + h] e stem:[x] differiscano di un numero rappresentabile in modo esatto.
+Questo però sarebbe difficile stabilire a priori e quindi si esegue il calcolo in due passaggi, scelto un incremento positivo stem:[h]:
+
+[stem]
+++++
+x^+ \leftarrow x + h \\
+++++
+
+[stem]
+++++
+h \leftarrow x^+ - x
+++++
+
+Si noti che stem:[\leftarrow] denota l'operazione di assegnazione in di una variabile.
+
+Le fonti di errore però restano ancora, ad esempio l'errore stem:[\varepsilon_f] nella valutazione della funzione stem:[f].
+
+In virtù di questi errori sono state derivate delle formule per minimizzare l'errore, in particolare:
+
+[stem]
+++++
+h \approx \sqrt{\frac{\varepsilon_f f(x)}{f''(x)}}
+++++
+
+Cercando la derivata prima, però, in genere non si dispone del valore della derivata seconda, e quindi si stima la radice del rapporto tra la funzione e la sua derivata seconda come stem:[x]. Questo non vale per stem:[x = 0] dove andrebbero fatte altre considerazioni. L'errore di valutazione della funzione, inoltre, non è noto. Si approssima con l'accuratezza del numero in virgola mobile, ossia https://it.wikipedia.org/wiki/Epsilon_di_macchina[stem:[\epsilon_\mu]].
+
+Si può migliorare significativamenete l'approssimazione della derivata valutando la funzione su un intervallo simmetrico centrato in stem:[x]:
+
+[stem]
+++++
+f'(x) \approx \frac{f(x+h)-f(x-h)}{h}
+++++
+
+Nelle librerie matematiche sono realizzate funzioni più accurate che però richiedono un numero maggiore di valutazioni.
+
+--
+=== Codice JS
+
+```js
+/**
+ * @param {Function} f una funzione continua e derivabile
+ * @returns {Function} ...
+ */
+const derivata = (f) => {
+  return (x0) => {
+    const h = 1E-6;
+    return ( f(x0 + h) - f(x0) ) / h;
+  }
+};
+```
+
+[.notes]
+--
+Un tentativo naïve di usare la formula del rapporto incrementale.
+
+Può accadere che i numeri macchina stem:[x + h] e stem:[x] non siano distinguibili.
+In tal caso il numeratore del rapporto incrementale è nullo ed il calcolo della derivata restituisce 0. Ad esempio il calcolo della derivata di stem:[f(x) = x^2] nel punto stem:[x_0 = 2\cdot 10^{10}], ```derivata(x=>x*x) (2E10)```, restitituisce 0, invece di stem:[4\cdot 10^{10}].
+
+Per osservare la cancellazione si noti che stem:[10^-6 = 1.048576 \cdot 2^{-20}] e che stem:[2\cdot 10^{10} = 1.1641532182693481 \cdot 2^{34}]; quando si allineano i due numeri servirebbero almeno 54 bit ma nella convenzione IEEE 754 se ne usano 53 ovvero 52 espliciti ed un uno implicito prima della virgola.
+
+Se calcoliamo ```derivata(x=>x*x)(1E10)``` otteniamo 32768000000 con un errore superiore al 63 %. Ciò è dovuto alla discrepanza tra l'incremento effettivo al numeratore rispetto a quello al denominatore. Al numeratore, infatti, si perdono molte cifre significative quando si allinea il numero più piccolo a quello più grande.
+
+Altra considerazione è quella che la funzione ```derivata``` non restituisce un numero bensì una funzione in una variabile. ```derivata``` è una funzione di ordine superiore in quanto accetta come argomento una funzione e restituisce una funzione.
+
+Vedere: https://observablehq.com/@gionatamassi-sb/derivazione-numerica
+--
+
+=== Codice JS
+
+```js
+/**
+ * @param {Function} f una funzione continua e derivabile
+ * @returns {Function} ...
+ */
+const derivata = (f) => {
+  return (x0) => {
+    const h = -1E-6;
+    return ( f(x0 + h) - f(x0) ) / h;
+  }
+};
+```
+
+[.notes]
+--
+Altra prova ingenua in cui l'incremento è all'indietro.
+
+Possono esistere cancellazioni e inaccurattezze dovute alle differenze tra stem:[x + h] al numeratore e stem:[h] al denominatore.
+
+Se calcoliamo ```derivata(x=>x*x)(1E10)``` otteniamo 32768000000 con un errore superiore al 63 %. 
+
+Valgono le considerazioni per il codice sopra.
+--
+
+=== Codice JS
+
+```js
+/**
+ * @param {Function} f una funzione continua e derivabile
+ * @returns {Function} ...
+ */
+const derivata = (f) => {
+  return (x0) => {
+    const h = 1E-6;
+    return ( f(x0 + h) - f(x0 - h) ) / (2 * h);
+  }
+};
+```
+
+[.notes]
+--
+Questo codice migliora, specie per le funzioni fortemente non lineari, la stima della derivata calcolando il rapporto incrementale in un intervallo simmetrico rispetto al punto di valutazione.
+
+Nell calcolo di ```derivata(x=>x*x)(1E10)``` si ottiene lo stesso valore dei due metodi sopra esposti con un errore percentuale superiore al 63 %.
+
+--
+
+=== Codice JS
+
+```js
+/**
+ * @param {Function} f una funzione continua e derivabile
+ * @returns {Function} ...
+ */
+const derivata = (f) => {
+  return (x0) => {
+    const h = 1E-6;
+    const xpiuh = x0 + h;
+    const xmenoh = x0 - h;
+    const dueh = xpiuh - xmenoh;
+    return ( f(xpiuh) - f(xmenoh) ) / (dueh);
+  }
+};
+```
+
+[.notes]
+--
+Questo codice migliora di molto la stima della derivata in quanto effettual il rapporto con ponendo al denominatore l'incremento effettivo.
+
+Si noti come ```derivata(x=>x*x)(1E10)``` produce 17179869184 con un errore minore del 15 %.
+
+Il risultato non è accettabile ma è molto migliore rispetto a quelli precedenti.
+--
+
+=== Codice js
+
+```js
+/**
+ * @param {Function} f una funzione continua e derivabile
+ * @returns {Function} ...
+ */
+const derivata = (f) => {
+  return (x0) => {
+    let h = Math.sqrt(Number.EPSILON);
+    if (Math.abs(x0) > 1.E-6)
+      h *= x0;
+    const xph = x0 + h;
+    const xmh = x0 - h;
+    const dueh = xph - xmh;
+    return (f(xph) - f(xmh)) / dueh;
+  }
+};
+```
+
+[.notes]
+--
+Il codice è un tentativo di minimizzazione dell'errore di troncamento senza fare ipotesi particolari sulla funzione.
+
+Si nota che per stem:[x_0 = 10^{10}] e la funzione stem:[f(x) = x^2] si ottiene il valore 20000000015.988476 che dista da 20000000000 meno dello 0.00000008 %.
+Il valore calcolato di stem:[h] è 298.0232238769531.
+--
+
+== Ottimizzazione
+
+* Teorema di Weierstrass
+* Condizioni analitiche del primo ordine
+* Metodo di Newton per il calcolo degli estremanti
+* Interpretazione geometrica del metodo di Newton applicato alla derivata prima
+
+[.notes]
+--
+.Definizione di massimo e minimo
+====
+stem:[x_{0}] è un **minimo locale** (**massimo locale**) della funzione obiettivo stem:[f(x)] se esiste un intorno stem:[I(x_{0})], intorno di stem:[x_{0}], tale che stem:[f(x_{0})\leq f(x)] (stem:[f(x_{0})\geq f(x)]) per ogni stem:[x\in[a,b\] ].
+
+Se stem:[I(x_{0})] coincide con l'insieme stem:[[a,b\] ] allora stem:[x_{0}] è un **minimo assoluto** (**massimo assoluto**).
+====
+
+**Teorema di Weierstrass**
+
+Sia stem:[[a, b\] \subset \mathbb{R}] un intervallo chiuso e limitato non vuoto e sia stem:[f \colon [a, b\] \to \mathbb{R}] una funzione continua. Allora stem:[f(x)] ammette almeno un punto di massimo assoluto e un punto di minimo assoluto nell'intervallo stem:[[a, b\] ].
+
+
+**Condizioni analitiche del primo ordine**
+
+Se il punto stem:[x_{0}] è un ottimo locale di stem:[f(x)] e se stem:[f(x)] è derivabile in stem:[x_{0}], allora stem:[f'(x_{0})=0].
+
+
+[IMPORTANT]
+Le condizioni analitiche del 1^o^ ordine sono solo necessarie.
+
+Se stem:[f(x)] è continua in stem:[[a, b\] ], gli ottimi locali (e globali) possono trovarsi nei punti:
+
+* stem:[x_{s}] in cui stem:[f'(x_{s})=0] (punti stazionari)
+* gli estemi stem:[a] e stem:[b]
+* i punti stem:[x_g] in cui stem:[f(x_g)] non è derivabile (punti singolari)
+
+--
+
+=== Estremanti e derivate
+
+image::punti_estremi_e_stazionari.gif[Punti estremi e condizioni del primo ordine]
+
+[.notes]
+--
+Nella figura è presente il grafico di una funzione e della sua derivata prima. Sia la funzione che la derivata sono continue e rappresentate in un intervallo compatto nel quale, per il teorema di Weierstrass, esistono almeno un massimo ed un minimo.
+Se si considera l'intervallo di rappresentazione, sia il massimo che il minimo assoluti sono negli estremi, mentre quelli relativi coincidono con i punti in cui la derivata prima si annulla. Tali punti sono i punti stazionari e sono candidati ad essere estremanti.
+--
+
+=== Metodi
+
+image::sqp.png[Metodo di Newton per l'ottimizzazione]
+
+[.notes]
+--
+Nella figura sono rappresentate una funzione stem:[g(\omega)] ed una sequenza di parabole approssimanti tale funzioni in tre punti indicati dagli indici 0, 1 e 2. La parabola stem:[p(\omega_k)] è
+
+* passante per stem:[\left(\omega_k, g(\omega_k)\right)]
+* tangente in stem:[\left(\omega_k, g(\omega_k)\right)], ossia ha lo stesso valore della derivata in stem:[\omega_k]
+* curvata allo stesso modo, ossia ha lo stesso valore della derivata seconda in stem:[\omega_k]
+
+Il processo di approssimazione del massimo o del minimo avviene, in analogia con il metodo di Newton, sostituendo alla stima corrente dell'estremante stem:[\omega_k] la proiezione sull'asse delle ascisse del vertice della parabola.
+
+Sviluppando i conti:
+
+stem:[\omega_{k+1} = \omega_k - \frac{g'(\omega_k)}{g''(\omega_k)}]
+
+Si evidenzia il fatto che la formula è identica a quella del metodo di Newton per la ricerca delle radici di funzione ma opera sulla derivata prima.
+
+--

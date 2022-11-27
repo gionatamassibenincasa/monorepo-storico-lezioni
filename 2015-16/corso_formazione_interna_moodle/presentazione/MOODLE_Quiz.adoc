@@ -1,0 +1,185 @@
+Creazione di test con Moodle
+============================
+:lang: it
+:author: Gionata Massi, Giuliano Piccini, Gabriella Pomili
+:Email: {gionata.massi,giuliano.piccini,gabriella.pomili}@savoiabenincasa.it
+:description: Presentazione del 26 maggio 2016
+//:Revision: {sys: git log -1 --format="data: %cd; hash: %h" MOODLE_Quiz.adoc}
+:Date: I.I.S. ``Savoia Benincasa'', Ancona -- 26 maggio 2016
+:max-width: 45em
+:data-uri:
+:icons:
+:backend: slidy
+:encoding: utf-8
+Premere la barra spaziatrice o la freccia a sinistra per continuare la presentazione.
+
+== Perché sei qui?
+
+Obiettivo generale: perché trascorro altre due ore a scuola?
+
+
+[role="incremental"]
+* per (auto)formazione su un ``Moodle''
+
+[role="incremental"]
+Obiettivi formativi
+
+[role="incremental"]
+* conoscere un ambiente per l'erogazione di corsi online;
+* saper accedere alla piattaforma;
+* saper accedere ai propri corsi;
+* saper modificare un corso con l'aggiunta di attività di verifica;
+* saper aggiungere domande ad una verifica strutturata.	
+
+[role="incremental"]
+Piano di lavoro
+
+[role="incremental"]
+* Introduzione
+** presentazione del relatore;
+** presentazione di Moodle;
+* *Laboratorio*
+
+== Chi sono?
+
+[role="incremental"]
+Un docente a tempo determinato
+
+[role="incremental"]
+* abilitato all'insegnamento dell'Informatica
+
+[role="incremental"]
+Una persona con interesse per
+
+[role="incremental"]
+* i sistemi informativi e informatici per l'apprendimento
+[role="incremental"]
+** Moodle!!!
+
+== Perché io?
+
+Esperienze con Moodle da studente
+
+[role="incremental"]
+* Tirocinio Formativo Attivo presso Unicam - 12/2014 -- 07/2015
+** fruizione del materiale didattico
+** discussione tramite ``forum''
+** verifiche formative e sommative (quiz e consegne)
+** creazione di ``corsi'' virtuali e attività didattiche simulate
+* Corsi MOOC (coursera, sololearn)
+[role="incremental"]
+Esperienze con Moodle da docente
+
+[role="incremental"]
+
+* Docenza a contratto presso una Università telematica - 12/2010 -- 07/2014
+** erogazione del materiale didattico
+** raccolta delle consegne
+** tracciamento delle attività degli studenti
+
+* *_Hic et nunc_*: I.I.S. ``Savoia Benincasa'' - 09/2015-06/2016
+** realizzazione delle prove e relativa valutazione
+
+== Perché i test?
+
+Un'attività tra le più semplici da realizzare con Moodle
+
+[role="incremental"]
+* rappresentano un facile punto d'accesso alla piattaforma
+
+[role="incremental"]
+Vari tipi di prove
+
+[role="incremental"]
+* Compiti
+* Quiz
+* Database
+* Glossari
+* Laboratori
+
+[role="incremental"]
+Documentazione dell'attività didattica
+
+== Quiz
+
+Quiz -- simolo chiuso risposta {chiusa, aperta} -- valutare le conoscenze
+
+[role="incremental"]
+* Risposta chiusa
+** correzione e valutazione automatica, oggettiva e priva di errori
+** buona accettazione della valutazione da parte degli studenti (nella mia esperienza)
+** possibilità di valutare la prova: validità, affidabiità, coerenza
+** possibilità di valutare gli item: facilità, equiattrazione...
+ 
+* proposta: [red]#prove comuni# per verifiche della conoscenza
+
+== Compiti
+
+Compiti con presentazione di artefatti -- valutare le abilità e le competenze
+
+[role="incremental"]
+* consegne di file (qualsiasi documento)
+* prova e correzione sempre disponibile per studenti e famiglie
+* proposta: [red]#prove multidisciplinari (UdA)#
+
+== Valutazione
+
+Moodle permette di:
+
+* adottare più scale e/o criteri di valutazione
+* creare e condividere le griglie di valutazione
+* realizzare valutazioni tra pari (blind, double blind...)
+* valutare in modo puntuale nel tempo (sincronica) o di progresso (diacronica)
+* costruire _portfolio_ come raccolta degli artefatti particolarmente significativi
+* valutazione secondo le più diverse strategie docimologiche
+* impiegare metodi d'inferenza statistica per la valutazione
+
+== Laboratorio
+
+* Login
+
+* I miei corsi
+* Attività -> Quiz
+
+* Domande
+** Vero/Falso
+** Risposta multipla
+** Cloze
+** Risposte brevi
+** Completamenti
+** Numeriche e calcolate
+
+== Login
+
+1. Registro elettronico docenti, Interfaccia per accesso al registro di classe
+2. Consultazione
+3. Una classe qualsiasi
+4. Aula virtuale
+5. Gestore Lezioni - Moodle
+
+Se in alto non compare ``Sei collegato come ...'' allora occorre cambiare password
+
+== Scelta del corso
+
+1. Menù: _I MIEI CORSI_
+2. Scelta della classe
+3. Bottone _Attiva modifica_
+
+== Modifica di una sezione
+
+1. Rotella di modifica
+2. Spunta sul nome di default
+3. Sperimentare
+
+== Aggiunta di attività
+
+1. Aggiungi una attività o una risorsa
+2. Attività -> Quiz
+
+[bibliography]
+Bibliografia
+------------
+
+[bibliography]
+- [[[baldascino2013]]] Roberto Baldascino. 'Un sistema di valutazione integrato tramite Moodle'. Atti del MoodleMoot Italia. 2013. ISBN: 978-88-907493-1-5.
+

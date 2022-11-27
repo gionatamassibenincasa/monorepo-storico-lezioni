@@ -1,0 +1,2 @@
+void inserisciDaTerminale();
+void stampaAnagrafica();

@@ -1,0 +1,54 @@
+= Esercitazione di programmazione: definizione delle classi
+:nomeclasse: Persona
+
+== Definisci la seguenti classe
+
+Definisci una classe **{nomeclasse}** per memorizzare
+
+* cognome,
+* nome e
+* anno di nascita
+
+di una persona.
+
+La classe deve disporre di un opportuno __costruttore__, di __metodi__ che consentano l’accesso in lettura a tutti gli attributi, di un __metodo__ per l’eventuale modifica dell'anno di nascita e del metodo `stampa_anagrafica` per la stampa a video di tutte le informazioni sulla persona.
+
+La classe deve essere scritta in due file:
+
+* `__{nomeclasse}__.h`::
+    fornisce il file di intestazione con la dichiarazione della classe.
+    
+* `__{nomeclasse}__.cpp`::
+    fornisce la definizione dei metodi della classe.
+
+Successivamente, scrivere la funzione **int main()** di un programma che legga da tastiera i dati di due persone, li memorizzi in oggetti distinti e indichi se le due persone sono coetanee.
+In caso contrario, il programma deve stampare i dati anagrafici della persona più giovane.
+
+Rispettare i principi dell’information hiding (attributi privati, metodi pubblici).
+
+Consegnare i file:
+
+* `__{nomeclasse}__.h`::
+    fornisce il file di intestazione con la dichiarazione della classe.
+    
+* `__{nomeclasse}__.cpp`::
+    fornisce la definizione dei metodi della classe.
+
+* `main___{nomeclasse}__.cpp`::
+    fornisce un test dei metodi della classe.
+
+.Diagramma della classe {nomeclasse}
+[plantuml, diagram-classes, svg]     
+....
+class Persona {
+    - std::string m_cognome
+    - std::string m_nome
+    - int m_annoDiNascita
+    + Persona(std::string c, std::string n, int aa)
+    + std::string cognome()
+    + std::string nome()
+    + int annoDiNascita()
+    + void annoDiNascita(int aa)
+    + void stampa_anagrafica()
+}
+....
