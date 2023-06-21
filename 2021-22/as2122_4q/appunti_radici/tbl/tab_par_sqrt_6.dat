@@ -1,0 +1,5 @@
+% Metodo delle parabole, f: (x) => x * x - 6, $x_0$: 3, f': (x) => 2 * x, f'': (x) => 2
+$k$	$x_k$	$f_k$	$f'_k$	$f''_k$	$|x_{k+1}-x_{k}|$
+0	3	3	6	2	3
+1	0	-6	0	2	0
+

@@ -6,6 +6,17 @@ L'iterata assume la forma:
 
 $$x_{k+1} = x_k - \frac{f(x_k)}{f'{x_k}}.$$
 
+Si veda la fig.~\ref{fig:retta_tangente}
+
+\begin{figure}
+    \begin{center}
+        \includestandalone{img/tan_generale}
+        \caption{Approssimazione di una funzione con la retta tangente passante in ($x_k$, $f(x_k)$)}
+        \label{fig:retta_tangente}
+    \end{center}
+\end{figure}
+
+
 \subsubsection{Convergenza}
 
 Il metodo non necessariamente converge.
@@ -24,7 +35,9 @@ Si vedanil listato \ref{lst:tangenti}.
 
 \subsubsection{Esempi}
 
-Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:tab_tan_exp_mx} e la fig. \ref{fig:tan_sqrt_6}.
+Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:tab_tan_exp_mx} e le fig. \ref{fig:tan_sqrt_6} e \ref{fig:geo_tan_sqrt_6}.
+
+Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
 
 \begin{table}
     \begin{center}
@@ -44,9 +57,17 @@ Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:ta
 \begin{figure}[ht]
     \centering
     \includestandalone{img/iter_tan_sqrt_6}
-    \caption{Successione delle soluzioni del metodo delle tangenti applicato a $x^2 -6$ nell'intervallo $[0, 6]$}
+    \caption{Successione delle soluzioni del metodo delle tangenti applicato a $x^2 -6$}
     \label{fig:tan_sqrt_6}
 \end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includestandalone{img/geo_tan_sqrt_6}
+    \caption{Successione delle soluzioni del metodo delle tangenti applicato a $x^2 -6$}
+    \label{fig:geo_tan_sqrt_6}
+\end{figure}
+
 
 \begin{table}
     \begin{center}
@@ -79,6 +100,13 @@ Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:ta
     \caption[]{Metodo delle tangenti applicato a $e^{e^{-x}}-x$ con stima iniziale 0,5 e nmax = 10}
 \end{table}
 
+\begin{figure}[ht]
+    \centering
+    \includestandalone{img/geo_tan}
+    \caption{Riepilogo sul metodo delle tangenti applicato a $e^{0.9x - x^2}$}
+    \label{fig:geo_tan_sqrt_6}
+\end{figure}
+
 
 \subsubsection{Esempio: algoritmo del reciproco}
 
@@ -102,3 +130,60 @@ Per la moltiplicazione occorrono le operazioni primitive di scorrimento e addizi
 
 Nota: queste proprietà permettono di realizzare le CPU senza l'operazione di divisione.
 
+
+\subsubsection{Esempio: metodo di Erone per la radice quadrata}
+
+Si consideri il problema di determinare la radice quadrata di un numero reale $r$.
+
+Se dal punto di vista algebrico possiamo vedere il problema come determinare uno zero della funzione $f(x) = x^2 - r$,
+da un punto di vista geometrico possiamo porci il problema di trovare il lato di un quadrato di area $r$.
+
+
+L'idea di Erone di Alessandria è quella fornire una stima della radice quadrata, che chiamiamo $x_k$ e che
+rappresentiamo geometricamente come la base di un rettangolo. Chiamiamo $h_k = \frac{r}{x_k}$ l'altezza del rettangolo
+di area $r$ e base $x_k$.
+Se $x_k$ e $h_k$ fossero molto vicini tra di loro, allora abbiamo trovato una buona stima per $\sqrt{r}$, altrimenti
+occorre migliorare la stima. Per fare ciò consideriamo il valor medio tra $x_k$ e $h_k$.
+
+L'iterata del metodo, ossia la stima migliore, ha equazione:
+
+$$x_{k+1} = \frac{x_k+\frac{r}{x_k}}{2}$$
+
+che può essere riscritta come:
+
+$$x_{k+1} = \frac{x_k+ \frac{r}{x_k}}{2} = \frac{x_k^2 + r}{2x_k}$$
+
+Vogliamo dimostrare che la traccia di esecuzione del metodo di Erone di Alessandria è la stessa del metodo
+di Newton applicato alla funzione $f(x) = x^2 - r$ calcolando l'iterata:
+
+$$x_{k+1} = x_k - \frac{f(x_k)}{f'(x_k)} =
+            x_k - \frac{x_k^2 - r}{2 x_k} =
+            \frac{2 x_k^2 - ( x_k^2 - r)}{2 x_k} =
+            \frac{x_k^2 + r}{2 x_k}$$
+
+Le iterate assumono lo stesso valore, come volevasi dimostrare!
+
+Si vedano 
+
+\begin{table}
+    \begin{center}
+\pgfplotstabletypeset[
+	col sep=tab,
+    every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
+	every last row/.style={after row=\bottomrule},	% style the last row
+    every column/.style={dec sep align,precision=10}
+	%every first column/.style={column type/.add={|}{}},	% style the first column
+	%every last column/.style={column type/.add={}{|}},	% style the last column
+	%columns/C/.style = {column type/.add={|}{|}}	% style the designated column
+]{tbl/tab_erone_sqrt_6.dat}
+\end{center}        
+\caption[]{Metodo di Erone di Alessandria per il calcolo di $\sqrt{6}$ con stima iniziale 3 e nmax = 10}
+\label{tab:erone_sqrt_6}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \includestandalone{img/geo_erone_1}
+    \caption{Successione delle soluzioni del metodo di Erone per il calcolo di $\sqrt{6}$ con stima iniziale 3}
+    \label{fig:geo_erone_sqrt_6}
+\end{figure}
