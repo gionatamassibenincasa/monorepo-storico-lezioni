@@ -6,61 +6,72 @@
 \begin{axis}[
     declare function={P(\x,\a,\b,\c)=\a*pow(\x,2)+\b*\x+\c;},
     axis lines=middle,
-    % axis equal image,
     xlabel=$x$,
     ylabel=$y$,
-    xmin=-5,xmax=2,
-    ymin=-25,ymax=20,
-    %xtick={2, 0 , 2, 4},
-    %ytick={-5, 0, 5, 10},
-    restrict x to domain=-5:2
+    xmin=-6,xmax=1,
+    ymin=-25,ymax=25,
+    xticklabels={},
+    yticklabels={},
+    restrict x to domain=-6:1,
     restrict y to domain=-10:10
     legend style={at={(axis cs:1,1)},anchor=nort west}
 ]
-\addplot[domain=-5:2,samples=100,color=red]{x^3/3+2*x^2+x+6};
-%\addlegendentry{$f(x)=1/3*x^3+2*x^2+x+6$}
 \xdef\xold{-3}
 \xdef\yold{12}
 \xdef\a{0}
 \xdef\b{0}
 \xdef\b{0}
-\foreach \k in {0,...,2}{
+%\pgfplotsforeachungrouped \k in {0,...,2}{
+\foreach \k/\clr in {0/red,1/green,2/blue}{
     \pgfmathsetmacro{\a}{\xold + 2}
     \pgfmathsetmacro{\b}{1-pow(\xold, 2)}
     \pgfmathsetmacro{\c}{pow(\xold, 3) / 3 + 6}
     \pgfmathsetmacro{\xnew}{\xold - ((pow(\xold, 2) + 4*\xold + 1) / (2*\xold+4))}
     \pgfmathsetmacro{\ynew}{pow(\xnew,3)/3+2*pow(\xnew, 2)+\xnew+6}
-    % il punto sulla funzione
-    \edef\punto{\noexpand\addplot[
+    \edef\pt{\noexpand\addplot[
         only marks,
         mark=circle,
-        mark size=2pt,
+        mark size=3pt,
         point meta=explicit symbolic,
         nodes near coords,
+        color=\clr
         ] coordinates {%
             (\xold,\yold) [$x_{\k}$]%
         };
     }
-    \punto
-      
-    \ifodd\k
-        % la parabola
-        \addplot[domain=-5:2,color=green]{P(x, \a, \b, \c)};
-        % il segmento verticale
-        \addplot[mark=none,color=green] coordinates {(\xold,\yold) (\xold,0)};
-    \else
-        % il punto sulla funzione
-        \addplot[mark=o,color=blue] coordinates {(\xold,\yold) (\xnew,\ynew)};
-        % la parabola
-        %\addplot[domain=-5:2,color=blue]{\a * x^2 + \b * x + \c};
-        \addplot[domain=-5:2,color=blue]{P(x, \a, \b, \c)};
-        % il segmento verticale
-        \addplot[mark=none,color=blue] coordinates {(\xold,\yold) (\xold,0)};
-    \fi
-%    \addlegendentry{$k=\k$}
+    \edef\px{\noexpand\addplot[
+        domain=-5.75:0.75,
+        color=\clr
+        ]{P(x, \a, \b, \c)} node[left]{$p_{\k}(x)$};
+    }
+    \edef\ln{\noexpand\addplot[
+        mark=none,
+        color=\clr] coordinates {(\xold,\yold) (\xold,0)};
+    }
+    \pt
+    \px
+    \ln
+    % variable update
     \global\let\xold\xnew
     \global\let\yold\ynew
 }
+\addplot[domain=-6:1,samples=100,color=black]{x^3/3+2*x^2+x+6} node[left]{$f(x)$};
 \end{axis}
 \end{tikzpicture}
 \end{document}
+
+Informatica: Approssimazioni degli estremanti mediante vertici della parabola approssimante.
+
+Matematica: Ricerca degli estremanti. Condizioni di esistenza di massimi e minimi. Punti stazionari.
+
+Fisica: Energia potenziale ed equilibrio nei punti di minimo; configurazioni di minima energia; corrente elettrica (conduzione)
+
+Scienze: orbitali, reazioni e bilanci energetici
+
+Italiano: (da massimi e minimi alla bramosia del meglio) Il ciclo dei vinti, Verga
+
+Storia: L'unità d'Italia (il periodo di ambientazione dei Malavoglia inizia nel 1861)
+
+Filosofia: Il superuomo
+
+Inglese: Un qualche autore di quel periodo storico

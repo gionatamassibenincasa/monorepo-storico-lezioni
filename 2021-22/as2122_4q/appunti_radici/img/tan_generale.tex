@@ -1,12 +1,9 @@
 % https://tex.stackexchange.com/questions/551160/plot-that-demonstrate-newtons-method
 \documentclass[border=0.1cm]{standalone}
-    
 \usepackage{tikz}
 \usetikzlibrary{intersections,calc}
 
-    
 \begin{document}
-
 \begin{tikzpicture}[thick,yscale=0.8]
 
 % Axes
@@ -16,22 +13,42 @@
 % Function plot
 \draw[ultra thick, orange,name path=function]  plot[smooth,domain=1:9.5] (\x, {0.1*\x^2-1.5}) node[left]{$f(x)$};
 
-
-
 % plot tangent line
 \node[violet,right=0.2cm] at (8,4.9) {\large tangente};
-
 \draw[gray,thin,dotted] (8,0) -- (8,4.9) node[circle,fill,inner sep=2pt]{};
 \draw[dashed, violet,name path=Tfunction]  plot[smooth,domain=4.25:9.5] (\x, {1.6*\x-7.9});
-
-
 
 % x-axis labels
 \draw (8,0.1) -- (8,-0.1) node[below] {$x_{k}$};
 \draw [name intersections={of=Tfunction and xaxis}] ($(intersection-1)+(0,0.1)$) -- ++(0,-0.2) node[below,fill=white] {$x_{k+1}$} ;
 
-
 \end{tikzpicture}
-
-
 \end{document}
+
+Descrizione: Una parabola e una sua retta con l'indicazione di un punto sull'asse delle ordinate e l'intersezione della tangente con l'asse delle ascisse
+Argomento sotteso: Metodo di Newton (delle tangenti) per la determinazione degli zeri di funzione
+
+Immagine che mostra una parabola e l'interpretazione grafica di un'iterazione generica del metodo (algoritmo) di Newton.
+
+Informatica:
+Derivare l'iterata x_{k+i} del metodo di Newton nel caso di una parabola, o se si preferisce nel caso generale.
+Nel caso della parabola, si possono evitare le derivate in forma esplicita e basta la geometria del terzo anno.
+Mostrare che il problema di trovare il punto fisso della funzione x^2-r è equivalente a calcolare la radice quadrata
+e che l'iterata è la stessa del metodo di Erone.
+E' importante notare che l'algoritmo, nel caso di una parabola, converge sempre.
+
+Possibili collegamenti
+
+Matematica: Equazione della parabola; tangente ad una parabola; tangente.
+
+Fisica: velocità istantanea, accelerazione istantanea, moto parabolico, fisica classica (matematica del continuo) in contrapposizione alla fisica quantistica (matematica del discreto)...
+
+Italiano: (In analogia alla possibilità di conoscere in modo deterministico l'evoluzione di un fenomeno) Positivismo letterario, naturalismo, verismo in contrapposizione a romanticismo.
+
+Storia: Dall'Ottocenteto alla Belle Epoque o alla Prima Guerra Mondiale, oppure rivoluzione industriale
+
+Filosofia:  Comte, positivismo oppure Illuminismo
+
+Inglese: Charles Dickens
+
+Scienze: qualunque cosa che abbia a che fare con una parabola o una retta

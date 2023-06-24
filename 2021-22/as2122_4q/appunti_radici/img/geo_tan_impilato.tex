@@ -19,8 +19,7 @@ xStart=2.6;
 Steps=4;
 % Calc ====
 xNew(\x)=\x-f(\x)/df(\x);
-dx=0.01;      
-df(\x)=( f(\x+dx) -f(\x) )/dx;
+df(\x)=0.9*exp(0.9*\x) - 2*\x;
 },}
 
 % Start row
@@ -28,72 +27,10 @@ df(\x)=( f(\x+dx) -f(\x) )/dx;
 \pgfmathsetmacro\fxnStart{f(xStart)}
 \pgfmathsetmacro\dfxnStart{df(xStart)}
 \pgfmathsetmacro\xNewStart{xNew(xStart)}
-\pgfplotstableread[header=false, col sep=comma,
-]{
-0, \xStart, \fxnStart, \dfxnStart,  \xNewStart
-}\newtontable
-
-% Further rows
-\pgfmathsetmacro\Steps{Steps}
-\pgfplotsforeachungrouped \n in {1,...,\Steps} {%%
-\ifnum\n=1 \pgfplotstablegetelem{0}{[index]4}\of\newtontable \else
-\pgfplotstablegetelem{0}{[index]4}\of\nextrow \fi
-\pgfmathsetmacro\xOld{\pgfplotsretval}
 %
 \pgfmathsetmacro\fxn{f(\xOld)}
 \pgfmathsetmacro\dfxn{df(\xOld)}
 \pgfmathsetmacro\xNew{xNew(\xOld)}
-%
-\edef\createnextrow{
-\noexpand\pgfplotstableread[
-col sep=comma,      row sep=crcr, 
-]{
-\n,   \xOld,   \fxn, \dfxn, \xNew \noexpand\\
-}\noexpand\nextrow
-}\createnextrow
-%
-% Concatenate in loop
-\pgfplotstablevertcat{\temprow}{\nextrow}
-%\n \pgfplotstabletypeset{\temprow} \\ % Show for test
-}%%
-% Concatenate with startrow
-\pgfplotstablevertcat{\newtontable}{\temprow}
-
-% Output =============================
-\pgfmathsetmacro\dx{dx}
-
-\newsavebox{\ExampleText}
-\savebox\ExampleText{% ======================
-\begin{minipage}{\mywidth}
-% Title =======
-$f(x) = \fxshow   \\[1em]
-f'(x)\approx \dfrac{f(x+\Delta x)-f(x)}{\Delta x},~~\Delta x=\dx \\[0.5em]
-t_k(x) = f'(x_k)\cdot (x-x_k)+f(x_k) \\[0.5em]
-x_0=\xStart,~~    x_{k+1}=x_k-\dfrac{f(x_k)}{f'(x_k)}    $  \\[0.5em]
-%Table =======
-\pgfplotstabletypeset[column type=r, 
-% Show integers as intgers and general number format:
-every column/.style={postproc cell content/.style={
-@cell content=\pgfmathifisint{##1}
-        {\pgfmathprintnumber[precision=0]{##1}}  
-        {\pgfmathprintnumber[fixed,  fixed zerofill,  precision=5]{##1}}  
-}}, 
-%font=\footnotesize, 
-display columns/0/.style={column name=$n$},
-display columns/1/.style={column name=$x_k$},
-display columns/2/.style={column name=$f(x_k)$},
-display columns/3/.style={column name=$f'(x_k)$},
-display columns/4/.style={column name=$x_{k+1}$},
-every head row/.style={after row=\hline, before row=\hline},
-every last row/.style={after row=\hline},
-]{\newtontable} \\[0.5em]
-%
-\xdef\xRes{\xNew}
-\pgfmathparse{f(\xRes)}
-\xdef\yRes{\pgfmathresult}
-{$\Rightarrow~ \boldsymbol{ x  \approx\xNew}$  }
-\end{minipage}}%========================
-%\usebox{\ExampleText} % Show for test
 
 \begin{tikzpicture}[
 font=\footnotesize, 
@@ -114,10 +51,6 @@ axis line style = {-latex},
 xlabel style={anchor=north},
 ylabel style={anchor=east},
 xmin=-3,      xmax=3,
-%ymin=-0.5,     ymax=3.7,
-%xtick={-1,-0.6,...,1},
-%minor ytick={-0.5,0,...,3.5},
-%legend pos=outer north east,
 legend style={at={(0.0,-0.05)},anchor=north west},
 legend cell align=left,
 enlarge y limits=upper,
