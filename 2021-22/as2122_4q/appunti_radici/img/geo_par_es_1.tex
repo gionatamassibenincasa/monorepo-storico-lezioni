@@ -5,16 +5,20 @@
 \begin{tikzpicture}
 \begin{axis}[
     declare function={P(\x,\a,\b,\c)=\a*pow(\x,2)+\b*\x+\c;},
-    axis lines=middle,
+    axis lines=left,
     xlabel=$x$,
     ylabel=$y$,
-    xmin=-6,xmax=1,
+    xmin=-7,xmax=2.5,
     ymin=-25,ymax=25,
-    xticklabels={},
+    xtick={-4, -3.75, -3.732142857142857, -3},
+    xticklabels={$x_1$, $x_2$, , $x_0$},
     yticklabels={},
     restrict x to domain=-6:1,
-    restrict y to domain=-10:10
-    legend style={at={(axis cs:1,1)},anchor=nort west}
+    restrict y to domain=-15:25,
+    clip=false,
+    xmajorgrids=true,
+    grid style=dashed,
+    %legend style={at={(axis cs:1,1)},anchor=nort west},
 ]
 \xdef\xold{-3}
 \xdef\yold{12}
@@ -36,26 +40,26 @@
         nodes near coords,
         color=\clr
         ] coordinates {%
-            (\xold,\yold) [$x_{\k}$]%
+            (\xold,\yold) [$V_{\k}$]%
         };
     }
     \edef\px{\noexpand\addplot[
-        domain=-5.75:0.75,
+        domain=-5.75:2.25,
         color=\clr
-        ]{P(x, \a, \b, \c)} node[left]{$p_{\k}(x)$};
+        ]{P(x, \a, \b, \c)} node[left, pos=1]{$p_{\k}(x)$};
     }
-    \edef\ln{\noexpand\addplot[
-        mark=none,
-        color=\clr] coordinates {(\xold,\yold) (\xold,0)};
-    }
+    %\edef\ln{\noexpand\addplot[
+    %    mark=none,
+    %    color=\clr] coordinates {(\xold,\yold) (\xold,0)};
+    %}
     \pt
     \px
-    \ln
+    %\ln
     % variable update
     \global\let\xold\xnew
     \global\let\yold\ynew
 }
-\addplot[domain=-6:1,samples=100,color=black]{x^3/3+2*x^2+x+6} node[left]{$f(x)$};
+\addplot[domain=-6:1,samples=51,color=black,thick]{x^3/3+2*x^2+x+6} node[left]{$f(x)$};
 \end{axis}
 \end{tikzpicture}
 \end{document}

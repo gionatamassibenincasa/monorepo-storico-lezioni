@@ -25,6 +25,8 @@ const tangentiToTeX = (f, x, f1, e1 = 1e-16, e2 = 1e-16, nmax = 10) => {
     "$f'_k$" +
     sep +
     "$|x_{k+1}-x_{k}|$" +
+    //sep +
+    //"$t_k$" +
     endl;
   let err = e1 + 1; // permette di entrare nel ciclo
   for (let iter = 0; iter < nmax && err >= e1; iter++) {
@@ -32,8 +34,21 @@ const tangentiToTeX = (f, x, f1, e1 = 1e-16, e2 = 1e-16, nmax = 10) => {
     let f1_x = f1(x);
     let xp = x;
     x = xp - f_x / f1_x;
+    // t_k(x) = f1_x * (x - xp) + f_x
     err = Math.abs(x - xp);
-    str += iter + sep + xp + sep + f_x + sep + f1_x + sep + err + endl;
+    str +=
+      iter +
+      sep +
+      xp +
+      sep +
+      f_x +
+      sep +
+      f1_x +
+      sep +
+      err +
+      // sep +
+      // `$t_{${iter}} = ${f1_x} \\cdot (x - ${xp}) + ${f_x}$` +
+      endl;
     if (Math.abs(f_x) < e2) {
       return str + endt;
     }

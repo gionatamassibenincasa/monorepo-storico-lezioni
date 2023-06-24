@@ -45,10 +45,11 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
 	col sep=tab,
     every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
 	every last row/.style={after row=\bottomrule},	% style the last row
-    every column/.style={dec sep align,precision=10}
-	%every first column/.style={column type/.add={|}{}},	% style the first column
-	%every last column/.style={column type/.add={}{|}},	% style the last column
-	%columns/C/.style = {column type/.add={|}{|}}	% style the designated column
+    columns/0/.style ={dec sep align,column name=$k$, precision=1},
+    columns/1/.style ={dec sep align,column name=$x_k$, precision=6},
+    columns/2/.style ={dec sep align,column name=$f_k$,	precision=4},
+    columns/3/.style ={dec sep align,column name=$m_k$, precision=4},
+    columns/4/.style ={dec sep align,column name=$|x_{k+1}-x_{k}|$, precision=4},
 ]{tbl/tab_tan_sqrt_6.dat}
 \end{center}        
 \caption[]{Metodo delle tangenti applicato a $x^2 -6$ con stima iniziale 3 e nmax = 10}

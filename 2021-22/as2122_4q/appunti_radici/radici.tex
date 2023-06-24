@@ -11,6 +11,7 @@
 %\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
 %\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{placeins}
 % These packages are all incorporated in the memoir class to one degree or another...
 \usepackage[italian]{babel}
 
@@ -51,10 +52,10 @@
 \newtheorem*{comm}{Commento}
 \newtheorem*{note}{Nota}
 \newtheorem{caso}{Caso}
-\usepackage[mode=buildnew]{standalone}% requires -shell-escape
+\usepackage[mode=buildnew]{standalone}% requires --shell-escape
 \usepackage{tikz}
 \usepackage{pgfplots}
-\pgfplotsset{width=10cm,compat=1.17}
+\pgfplotsset{width=10cm,compat=newest}
 \usepackage{pgfplotstable}
 
 \usepackage{multirow}
@@ -121,16 +122,18 @@ Usualmente consideriamo funzioni continue in $\mathbb{R}$ o almeno in un inteval
 
 Non tutte le funzioni ammettono radici, ad esempio $x \mapsto k$ e $x \mapsto (x + k)^2$, dove $k \neq 0$ (es: fig.~\ref{fig:no_zeri}).
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/no_zeri}
     \caption{Funzioni che non intersecano l'asse $y = 0$}
     \label{fig:no_zeri}
 \end{figure}
     
-Altre funzioni hanno radici nei punti di massimo o di minimo locale (es: fig. \ref{fig:zero_estremante}).
+Altre funzioni hanno radici nei punti di massimo o di minimo locale (es: fig. \ref{fig:zero_estremante})
+e questo può rendere difficile identificare già la sola esistenza degli zeri. Se un metodo può essere eseguito,
+esso sarà poco efficiente nel trovare la soluzione vicino ad un estremante.
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/zero_estremanti}
     \caption{Funzioni che intersecano l'asse $y = 0$ in un estremante}
@@ -147,7 +150,7 @@ Se $f (x)$ è una funzione continua sull'intervallo limitato e chiuso $[a, b]$ e
 
 Se le ipotesi del teorema sono vere può esistere una sola radice oppure ce ne possono essere in numero finito o anche infinite (fig. \ref{fig:ipotesibolzano}).
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/segni_discordi}
     \caption{Funzioni che assumono valori opposti agli estremi -1, 1}
@@ -156,6 +159,30 @@ Se le ipotesi del teorema sono vere può esistere una sola radice oppure ce ne p
 
 Un metodo di ricerca delle radici, se convergente, restituirà una sola delle radici.
 Si intuisce che maggiore è la pendenza della funzione in un intorno della radice, più è facile discriminare la radice. Se invece la pendenza è nulla o quasi, allora il problema si dice mal condizionato.
+
+Esistono funzioni continue in cui è difficile anche solo enumerare gli zeri.
+
+Si consideri nell'intervallo [-1, 1] la seguente funzione:
+
+\begin{equation*}
+    f(x) =
+    \begin{cases}
+        x \sin(\frac{1}{x}) & x \neq 0\\
+        0                   & x = 0
+    \end{cases}
+\end{equation*}
+
+Il grafico in fig.~\ref{fig:tantizeri} è costruito campionando l'intervallo [-1, 1] in 801 punti e valutando con la
+massima precisione possibile in quella che si chiama la rappresentazione in virgola mobile, la funzione in 801 punti.
+Il grafico è impreciso numericamente non si riesce ad avere una rappresentazione molto migliore.
+
+\begin{figure}[!htbp]
+    \centering
+    \includestandalone{img/tanti_zeri}
+    \caption{Funzioni che assumono valori opposti agli estremi -1, 1 e hanno infiniti zeri}
+    \label{fig:tantizeri}
+\end{figure}
+
 
 \section{Metodi numerici}
 
@@ -386,7 +413,7 @@ a = x_k + 2}
 \label{tbl:par_es2}
 \end{table}
 
-% \begin{figure}[ht]
+% \begin{figure}[!htbp]
 %     \centering
 %     \includestandalone{img/iter_cor_sqrt_6}
 %     \caption{Successione delle soluzioni del metodo delle secanti applicato a $x^2 -6$ nell'intervallo $[0, 6]$}
