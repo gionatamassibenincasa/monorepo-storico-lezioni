@@ -1,18 +1,26 @@
 \documentclass[tikz]{standalone}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{matrix}
+\pgfplotsset{
+    every axis/.append style={scale only axis, axis on top,
+    height=7.414cm, width=10cm,xmin=-7}
+}
 \begin{document}
 \begin{tikzpicture}
 \begin{axis}[
     declare function={P(\x,\a,\b,\c)=\a*pow(\x,2)+\b*\x+\c;},
-    axis lines=left,
+    axis lines=middle,
+    y axis line style={draw=none},
     xlabel=$x$,
-    ylabel=$y$,
+    %ylabel=$y$,
     xmin=-7,xmax=2.5,
     ymin=-25,ymax=25,
-    xtick={-4, -3.75, -3.732142857142857, -3},
-    xticklabels={$x_1$, $x_2$, , $x_0$},
-    yticklabels={},
+    xtick={-4, -3.75, -3},
+    xticklabels={$x_1$, $x_2$, $x_0$},
+    ytick=\empty,
+    yticklabels=\empty,
+    ytick style={draw=none},
     restrict x to domain=-6:1,
     restrict y to domain=-15:25,
     clip=false,
@@ -46,15 +54,15 @@
     \edef\px{\noexpand\addplot[
         domain=-5.75:2.25,
         color=\clr
-        ]{P(x, \a, \b, \c)} node[left, pos=1]{$p_{\k}(x)$};
+        ]{P(x, \a, \b, \c)} node[left, pos=1-0.2*\k]{$p_{\k}(x)$};
     }
-    %\edef\ln{\noexpand\addplot[
-    %    mark=none,
-    %    color=\clr] coordinates {(\xold,\yold) (\xold,0)};
-    %}
+    \edef\ln{\noexpand\addplot[
+        %mark=none,
+        color=\clr] coordinates {(\xold,\yold) (\xold,0)};
+    }
     \pt
     \px
-    %\ln
+    \ln
     % variable update
     \global\let\xold\xnew
     \global\let\yold\ynew

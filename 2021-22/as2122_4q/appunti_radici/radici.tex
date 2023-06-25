@@ -1,5 +1,6 @@
 \documentclass[12pt]{article} 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{a4paper}
 \geometry{top=0.5in, bottom=0.5in, left=.7in, right=.7in}
@@ -112,6 +113,12 @@
 
 \tableofcontents
 
+\thispagestyle{empty}
+\listoffigures
+\listoftables
+\newpage
+\pagenumbering{arabic}
+
 \section{Il problema}
 
 Data una funzione $f : \mathbb{R} \to \mathbb{R}$, determinare un valore reale $\alpha$ tale che $f(\alpha) = 0$.
@@ -172,9 +179,10 @@ Si consideri nell'intervallo [-1, 1] la seguente funzione:
     \end{cases}
 \end{equation*}
 
-Il grafico in fig.~\ref{fig:tantizeri} è costruito campionando l'intervallo [-1, 1] in 801 punti e valutando con la
-massima precisione possibile in quella che si chiama la rappresentazione in virgola mobile, la funzione in 801 punti.
-Il grafico è impreciso numericamente non si riesce ad avere una rappresentazione molto migliore.
+Il grafico in fig.~\ref{fig:tantizeri} è costruito campionando l'intervallo [-1, 1] in 800 punti e
+valutando in ognuno di questi punti, con la massima precisione possibile in virgola mobile, il
+valore della funzione.
+Anche aumentando il numero di punti il grafico ottenuto al calcolare sarà sempre impreciso.
 
 \begin{figure}[!htbp]
     \centering
@@ -182,7 +190,6 @@ Il grafico è impreciso numericamente non si riesce ad avere una rappresentazion
     \caption{Funzioni che assumono valori opposti agli estremi -1, 1 e hanno infiniti zeri}
     \label{fig:tantizeri}
 \end{figure}
-
 
 \section{Metodi numerici}
 
@@ -258,7 +265,7 @@ Risolvendo per $$r(x_{k+1}) = 0$$ si ha
     x_{k+1} = x_k - \frac{f(x_k)}{m_k}
 \end{equation}
 
-\begin{figure}
+\begin{figure}[!htbp]
     \begin{center}
         \includestandalone{img/approx_rette}
         \caption{Approssimazione di una funzione con una retta passante per ($x_k$, $f(x_k)$)}
@@ -266,159 +273,12 @@ Risolvendo per $$r(x_{k+1}) = 0$$ si ha
     \end{center}
 \end{figure}
 
-\input{corde.tex}
+% \input{corde.tex}
 
-\input{secanti}
+% \input{secanti}
 
 \input{tangenti}
 
-\subsection{Altri metodi}
-
-\subsubsection{Metodo di Steffensen}
-
-Le derivate sono complesse da calcolare quando non sono
-note in forma esplicita ma è possibile ottenere un metodo
-di ordine di convergenza due applicando più valutazini della funzione
-senza ricorrere alla derivazione.
-
-$$x_{k+1} = x_k -\frac{f(x_k)}{g(x_k)};\quad g(x_k) =\frac{f(x_k + f(x_k )) - f(x_k )}{f(x_k)}$$
-
-$$x_{k+1} = x_k - \frac{f(x_k)^2}{f(x_k + f(x_k )) - f(x_k )}$$
-
-Si noti che la valutazione della funzione $f$ in $x_k$ è molto vicina a zero.
-Per apprezzare quanto la funzione $g$ approssimi $f'$ riscriviamo $g(x_k)$ con
-$h = f(x_k)$:
-
-$$g(x_k) =\frac{f(x_k + h(x_k )) - f(x_k )}{f(x_k)}$$.
-
-\subsubsection{Metodo di Muller}
-
-Un altro modo di approssimare la funzione $f$ è quella di usare una parabola.
-Nel metodo di Muller si stimano tre punti iniziali e si determina la parabola
-passante per essi. Dalla soluzione dell'equazione di secondo grado si ottengo
-due punti che si usano come nuove stime.
-Risolvere le equazioni secondo grado, però, può portare a soluzioni inesistenti.
-
-\section{Estensioni per il calcolo degli estremanti relativi}
-
-L'analisi matematica fornisce delle condizioni che mettono in relazione i punti
-di massimo e minimo relativo con quelli \textit{stazionari}.
-
-\begin{thm}[Teorema di Fermat sui punti stazionari]
-Sia $f :(a, b) \to \mathbb{R}$ una funzione e si supponga che $x_0 \in  (a, b)$
-sia un punto di estremo locale di $f$. Se $f$ è derivabile nel punto $x_0$,
-allora $f^{\prime}(x_0) = 0$.
-\end{thm}
-
-Trovare un estremante di una funzione, se è derivabile con condizioni che
-dipendono dal metodo scelto e la derivata è nota in forma simbolica o numerica,
-si riconduce al problema di determinare una radice della derivata prima.
-
-Tra i metodi più interessanti si trova quello di Newton.
-
-\subsection{Metodo di Newton per l'ottimizzazione}
-
-Possiamo applicare il metodo di Newton per la ricerca delle radici ad una
-funzione $g(x) = f'(x)$ per trovare un punto stazionario. Si richiede che $f$
-sia continua e derivabile almeno due volte in un intorno di $x_0$, stima iniziale
-del punto estremante.
-
-$$x_{k + 1} = x_k - \frac{g(x_k)}{g'(x_k)} = x_k - \frac{f'(x_k)}{f''(x_k)}$$
-
-\subsubsection[Interpretazione geometrica]{Interpretazione geometrica del metodo di Newton per l'ottimizzazione}
-
-Possiamo sviluppare il metodo in modo geometrico, approssimando $f(x_k)$ con una parabola $p(x) = a x^2 + bx + c$
-passante per il punto $\left(x_k, f(x_k)\right)$, con la stessa tangente nel punto $x_k$ e stessa derivata seconda.
-Trovati i coefficienti $a, b$ e $c$ della parabola, possiamo approssimare il vertice della funzione $f$
-con il vertice della parabola, che sappiamo avere proiezione sull'asse delle ascisse $x_{k+1} = \frac{-b}{2a}$.
-
-Per calcolare $a$ e $b$, gli unici due parametri usati per determinare il vertice, imponiamo le condizioni sulle
-derivate prime e seconda.
-
-\systeme{f'(x_k) = 2a x_k + b,
-         f''(x_k) = 2a}
-
-Dal sistema abbiamo esplicitato $2a = f''(x_k)$ e dobbiamo ricavare $b$ dalla prima equazione.
-
-$b = f'(x_k) - 2a x_k = f'(x_k) - f''(x_k) x_k$.
-
-L'iterata del metodo geometrico che a partire dal punto $x_k$ approssima l'estremante di $f$
-con il vertice di $p$ ha equazione:
-
-$$x_{k+1} = \frac{-b}{2a} = \frac{f''(x_k) x_k - f'(x_k)}{f''(x_k)} = x_k - \frac{f'(x_k)}{f''(x_k)}$$
-
-Per completezza, possiamo determinare tutti i coefficienti di $p$:
-
-\systeme{f(x_k) = a x_k^2 + b x_k + c,
-         f'(x_k) = 2a x_k + b,
-         f''(x_k) = 2a}
-
-Sostituendo nella prima equazione $a$ e $b$ si ha:
-
-$$c = - \frac{1}{2} f''(x_k) - f'(x_k) x_k + f''(x_k) x_k^2 + f(x_k) = f(x_k)  - f'(x_k) x_k + \frac{1}{2} f''(x_k) x_k^2$$
-
-
-Questa è l'interpretazione geometrica del metodo di Newton applicato alla derivata prima.
-
-\subsection{Esempio}
-
-Consideriamo la funzione $f(x) = \frac{1}{3} x^3 + 2 x^2 + x + 6$, di cui è agevole
-calcolare le derivate prima, $f'(x) = x^2 + 4 x + 1$, e seconda, $f''(x) = 2x + 4$.
-
-Analiticamente è facile trovare gli estremanti in $x_M = -2 \pm \sqrt{3}$.
-
-Numericamente potremmo valutare la funzione in più punti e magari potremmo osservare
-che gli estremanti si trovano nell'intervallo $[-5, 2]$ e consideriamo una volta il
-punto -3 e l'altra -1 come stime iniziali.
-
-Possiamo riscrivere l'iterata come:
-
-$$x_{k+1} = x_k - \frac{x^2 + 4 x + 1}{2x + 4}$$
-
-I parametri della parabola sono:
-
-\systeme{f(x_k) = a x_k^2 + b x_k + c,
-         f'(x_k) = 2a x_k + b,
-         f''(x_k) = 2a}
-
-\systeme{c = \frac{1}{3} x_k^3 + 6,
-b = 1 - x_k^2 ,
-a = x_k + 2}
-
-\begin{table}
-    \begin{center}
-\pgfplotstabletypeset[
-	col sep=tab,
-    every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
-	every last row/.style={after row=\bottomrule},	% style the last row
-    every column/.style={dec sep align,precision=10}
-]{tbl/tab_par_es1.dat}
-\end{center}        
-\caption[]{Metodo delle parabole con nmax = 5. $x_0 = -3$}
-\label{tbl:par_es1}
-\end{table}
-
-
-
-\begin{table}
-    \begin{center}
-\pgfplotstabletypeset[
-	col sep=tab,
-    every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
-	every last row/.style={after row=\bottomrule},	% style the last row
-    every column/.style={dec sep align,precision=10}
-]{tbl/tab_par_es2.dat}
-\end{center}        
-\caption[]{Metodo delle parabole con nmax = 5. $x_0 = -1$}
-\label{tbl:par_es2}
-\end{table}
-
-% \begin{figure}[!htbp]
-%     \centering
-%     \includestandalone{img/iter_cor_sqrt_6}
-%     \caption{Successione delle soluzioni del metodo delle secanti applicato a $x^2 -6$ nell'intervallo $[0, 6]$}
-%     \label{fig:par_es1}
-% \end{figure}
-
+% \input{altri_metodi}
 
 \end{document}

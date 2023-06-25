@@ -13,6 +13,9 @@
     grid=major, % Display a grid
     grid style={dashed,gray!30}, % Set the
     ymin = -5,
+    ymax =  5,
+    xmin = -5,
+    xmax =  5,
     axis equal,
     axis x line=middle,
     axis y line=middle,
@@ -20,10 +23,21 @@
 %Below the red parabola is defined
 \addplot [
     domain=-2:2, 
-    samples=100, 
+    samples=21,
     color=red,
 ]
 {x^2 + 1};
+
+%Here the green exp function
+\addplot [
+    domain=-5:2.1, 
+    samples=21,
+    color=green,
+    ]
+    {2^x};
+\addlegendentry{\(2^x\)}
+
+
 \addlegendentry{\(x^2 + 1\)}
 %Here the blue constant function
 \addplot [
@@ -33,6 +47,15 @@
     ]
     {-4};
 \addlegendentry{\(-4\)}
+
+%Here the blue constant function
+\addplot [
+    domain=-5:5, 
+    samples=100, 
+    color=orange,
+    ]
+    {1/x};
+\addlegendentry{\(\frac{1}{x}\)}
 
 \end{axis}
 %%%

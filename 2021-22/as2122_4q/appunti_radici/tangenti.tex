@@ -8,7 +8,7 @@ $$x_{k+1} = x_k - \frac{f(x_k)}{f'{x_k}}.$$
 
 Si veda la fig.~\ref{fig:retta_tangente}
 
-\begin{figure}
+\begin{figure}[!htbp]
     \begin{center}
         \includestandalone{img/tan_generale}
         \caption{Approssimazione di una funzione con la retta tangente passante in ($x_k$, $f(x_k)$)}
@@ -39,7 +39,7 @@ Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:ta
 
 Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
 
-\begin{table}
+\begin{table}[!htbp]
     \begin{center}
 \pgfplotstabletypeset[
 	col sep=tab,
@@ -55,14 +55,14 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
 \caption[]{Metodo delle tangenti applicato a $x^2 -6$ con stima iniziale 3 e nmax = 10}
 \end{table}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/iter_tan_sqrt_6}
     \caption{Successione delle soluzioni del metodo delle tangenti applicato a $x^2 -6$}
     \label{fig:tan_sqrt_6}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/geo_tan_sqrt_6}
     \caption{Successione delle soluzioni del metodo delle tangenti applicato a $x^2 -6$}
@@ -70,7 +70,7 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
 \end{figure}
 
 
-\begin{table}
+\begin{table}[!htbp]
     \begin{center}
         \pgfplotstabletypeset[
             col sep=tab,
@@ -85,7 +85,7 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
     \caption[]{Metodo delle tangenti applicato a $sin(x)$ con stima iniziale 3,1 e nmax = 10}
 \end{table}
 
-\begin{table}
+\begin{table}[!htbp]
     \begin{center}
         \pgfplotstabletypeset[
             col sep=tab,
@@ -101,7 +101,7 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
     \caption[]{Metodo delle tangenti applicato a $e^{e^{-x}}-x$ con stima iniziale 0,5 e nmax = 10}
 \end{table}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/geo_tan}
     \caption{Riepilogo sul metodo delle tangenti applicato a $e^{0.9x - x^2}$}
@@ -166,7 +166,7 @@ Le iterate assumono lo stesso valore, come volevasi dimostrare!
 
 Si vedano 
 
-\begin{table}
+\begin{table}[!htbp]
     \begin{center}
 \pgfplotstabletypeset[
 	col sep=tab,
@@ -182,9 +182,128 @@ Si vedano
 \label{tab:erone_sqrt_6}
 \end{table}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
     \centering
     \includestandalone{img/geo_erone_1}
     \caption{Successione delle soluzioni del metodo di Erone per il calcolo di $\sqrt{6}$ con stima iniziale 3}
     \label{fig:geo_erone_sqrt_6}
 \end{figure}
+
+\section{Estensioni per il calcolo degli estremanti relativi}
+
+L'analisi matematica fornisce delle condizioni che mettono in relazione i punti
+di massimo e minimo relativo con quelli \textit{stazionari}.
+
+\begin{thm}[Teorema di Fermat sui punti stazionari]
+Sia $f :(a, b) \to \mathbb{R}$ una funzione e si supponga che $x_0 \in  (a, b)$
+sia un punto di estremo locale di $f$. Se $f$ è derivabile nel punto $x_0$,
+allora $f^{\prime}(x_0) = 0$.
+\end{thm}
+
+Trovare un estremante di una funzione, se è derivabile con condizioni che
+dipendono dal metodo scelto e la derivata è nota in forma simbolica o numerica,
+si riconduce al problema di determinare una radice della derivata prima.
+
+Tra i metodi più interessanti si trova quello di Newton.
+
+\subsection{Metodo di Newton per l'ottimizzazione}
+
+Possiamo applicare il metodo di Newton per la ricerca delle radici ad una
+funzione $g(x) = f'(x)$ per trovare un punto stazionario. Si richiede che $f$
+sia continua e derivabile almeno due volte in un intorno di $x_0$, stima iniziale
+del punto estremante.
+
+$$x_{k + 1} = x_k - \frac{g(x_k)}{g'(x_k)} = x_k - \frac{f'(x_k)}{f''(x_k)}$$
+
+\subsubsection[Interpretazione geometrica]{Interpretazione geometrica del metodo di Newton per l'ottimizzazione}
+
+Possiamo sviluppare il metodo in modo geometrico, approssimando $f(x_k)$ con una parabola $p(x) = a x^2 + bx + c$
+passante per il punto $\left(x_k, f(x_k)\right)$, con la stessa tangente nel punto $x_k$ e stessa derivata seconda.
+Trovati i coefficienti $a, b$ e $c$ della parabola, possiamo approssimare il vertice della funzione $f$
+con il vertice della parabola, che sappiamo avere proiezione sull'asse delle ascisse $x_{k+1} = \frac{-b}{2a}$.
+
+Per calcolare $a$ e $b$, gli unici due parametri usati per determinare il vertice, imponiamo le condizioni sulle
+derivate prime e seconda.
+
+\systeme{f'(x_k) = 2a x_k + b,
+         f''(x_k) = 2a}
+
+Dal sistema abbiamo esplicitato $2a = f''(x_k)$ e dobbiamo ricavare $b$ dalla prima equazione.
+
+$b = f'(x_k) - 2a x_k = f'(x_k) - f''(x_k) x_k$.
+
+L'iterata del metodo geometrico che a partire dal punto $x_k$ approssima l'estremante di $f$
+con il vertice di $p$ ha equazione:
+
+$$x_{k+1} = \frac{-b}{2a} = \frac{f''(x_k) x_k - f'(x_k)}{f''(x_k)} = x_k - \frac{f'(x_k)}{f''(x_k)}$$
+
+Per completezza, possiamo determinare tutti i coefficienti di $p$:
+
+\systeme{f(x_k) = a x_k^2 + b x_k + c,
+         f'(x_k) = 2a x_k + b,
+         f''(x_k) = 2a}
+
+Sostituendo nella prima equazione $a$ e $b$ si ha:
+
+$$c = - \frac{1}{2} f''(x_k) - f'(x_k) x_k + f''(x_k) x_k^2 + f(x_k) = f(x_k)  - f'(x_k) x_k + \frac{1}{2} f''(x_k) x_k^2$$
+
+
+Questa è l'interpretazione geometrica del metodo di Newton applicato alla derivata prima.
+
+\subsection{Esempio}
+
+Consideriamo la funzione $f(x) = \frac{1}{3} x^3 + 2 x^2 + x + 6$, di cui è agevole
+calcolare le derivate prima, $f'(x) = x^2 + 4 x + 1$, e seconda, $f''(x) = 2x + 4$.
+
+Analiticamente è facile trovare gli estremanti in $x_M = -2 \pm \sqrt{3}$.
+
+Numericamente potremmo valutare la funzione in più punti e magari potremmo osservare
+che gli estremanti si trovano nell'intervallo $[-5, 2]$ e consideriamo una volta il
+punto -3 e l'altra -1 come stime iniziali.
+
+Possiamo riscrivere l'iterata come:
+
+$$x_{k+1} = x_k - \frac{x^2 + 4 x + 1}{2x + 4}$$
+
+I parametri della parabola sono:
+
+\systeme{f(x_k) = a x_k^2 + b x_k + c,
+         f'(x_k) = 2a x_k + b,
+         f''(x_k) = 2a}
+
+\systeme{c = \frac{1}{3} x_k^3 + 6,
+b = 1 - x_k^2 ,
+a = x_k + 2}
+
+\begin{table}[!htbp]
+    \begin{center}
+\pgfplotstabletypeset[
+	col sep=tab,
+    every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
+	every last row/.style={after row=\bottomrule},	% style the last row
+    every column/.style={dec sep align,precision=10}
+]{tbl/tab_par_es1.dat}
+\end{center}        
+\caption[]{Metodo delle parabole con nmax = 5. $x_0 = -3$}
+\label{tbl:par_es1}
+\end{table}
+
+\begin{table}[!htbp]
+    \begin{center}
+\pgfplotstabletypeset[
+	col sep=tab,
+    every head row/.style={before row=\toprule,after row=\midrule},	% style the first row
+	every last row/.style={after row=\bottomrule},	% style the last row
+    every column/.style={dec sep align,precision=10}
+]{tbl/tab_par_es2.dat}
+\end{center}        
+\caption[]{Metodo delle parabole con nmax = 5. $x_0 = -1$}
+\label{tbl:par_es2}
+\end{table}
+
+% \begin{figure}[!htbp]
+%     \centering
+%     \includestandalone{img/iter_cor_sqrt_6}
+%     \caption{Successione delle soluzioni del metodo delle secanti applicato a $x^2 -6$ nell'intervallo $[0, 6]$}
+%     \label{fig:par_es1}
+% \end{figure}
