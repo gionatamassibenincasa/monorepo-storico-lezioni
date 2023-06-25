@@ -37,7 +37,7 @@ Si vedanil listato \ref{lst:tangenti}.
 
 Si vedano le tabb.~\ref{tbl:tab_tan_sqrt_6}, \ref{tbl:tab_tan_sin} e \ref{tbl:tab_tan_exp_mx} e le fig. \ref{fig:tan_sqrt_6} e \ref{fig:geo_tan_sqrt_6}.
 
-Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
+Un esempio che riassume il metodo è in fig.~\ref{fig:geo_tab_completo}.
 
 \begin{table}[!htbp]
     \begin{center}
@@ -52,7 +52,8 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
     columns/4/.style ={dec sep align,column name=$|x_{k+1}-x_{k}|$, precision=4},
 ]{tbl/tab_tan_sqrt_6.dat}
 \end{center}        
-\caption[]{Metodo delle tangenti applicato a $x^2 -6$ con stima iniziale 3 e nmax = 10}
+\caption[]{Metodo delle tangenti applicato a $x^2 -6$ con stima iniziale 3}
+\label{tbl:tab_tan_sqrt_6}
 \end{table}
 
 \begin{figure}[!htbp]
@@ -82,7 +83,8 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
             %columns/C/.style = {column type/.add={|}{|}}	% style the designated column
         ]{tbl/tab_tan_sin.dat}
     \end{center}        
-    \caption[]{Metodo delle tangenti applicato a $sin(x)$ con stima iniziale 3,1 e nmax = 10}
+    \caption[]{Metodo delle tangenti applicato a $sin(x)$ con stima iniziale 3,1}
+    \label{tbl:tab_tan_sin}
 \end{table}
 
 \begin{table}[!htbp]
@@ -98,14 +100,15 @@ Una esempio che riassume il metodo è in fig.~\ref{fig:geo_tab}.
             %columns/C/.style = {column type/.add={|}{|}}	% style the designated column
         ]{tbl/tab_tan_exp_mx.dat}
     \end{center}        
-    \caption[]{Metodo delle tangenti applicato a $e^{e^{-x}}-x$ con stima iniziale 0,5 e nmax = 10}
+    \caption[]{Metodo delle tangenti applicato a $e^{e^{-x}}-x$ con stima iniziale 0,5}
+    \label{tbl:tab_tan_exp_mx}
 \end{table}
 
 \begin{figure}[!htbp]
     \centering
     \includestandalone{img/geo_tan}
     \caption{Riepilogo sul metodo delle tangenti applicato a $e^{0.9x - x^2}$}
-    \label{fig:geo_tan_sqrt_6}
+    \label{fig:geo_tab_completo}
 \end{figure}
 
 
@@ -275,6 +278,10 @@ I parametri della parabola sono:
 b = 1 - x_k^2 ,
 a = x_k + 2}
 
+La risoluzione con due punti iniziali diversi sono nelle tabb.~\ref{tbl:par_es1} e \ref{tbl:par_es2}.
+Per confrontare la soluzione geometrica (sostituzione del massimo con il vertice della parabola),
+funzione derivata e sua tangente, si veda la fig.~\ref{fig:geo_tan_impilato}.
+
 \begin{table}[!htbp]
     \begin{center}
 \pgfplotstabletypeset[
@@ -301,9 +308,9 @@ a = x_k + 2}
 \label{tbl:par_es2}
 \end{table}
 
-% \begin{figure}[!htbp]
-%     \centering
-%     \includestandalone{img/iter_cor_sqrt_6}
-%     \caption{Successione delle soluzioni del metodo delle secanti applicato a $x^2 -6$ nell'intervallo $[0, 6]$}
-%     \label{fig:par_es1}
-% \end{figure}
+\begin{figure}[!htbp]
+    \centering
+    \includestandalone{img/geo_par_tan_es_1}
+    \caption{Successione delle soluzioni del metodo delle parabole}
+    \label{fig:geo_tan_impilato}
+\end{figure}

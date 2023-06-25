@@ -2,8 +2,12 @@
 
 Sia $f (x)$ una funzione continua sull'intervallo limitato e chiuso $[a, b]$ con $f (a) \cdot f (b) < 0$.
 
-L'algoritmo genera una successione di intervalli
-$[a_k , b_k]$ con $f (a_k ) \cdot f (b_k ) < 0$ e con $[a_k , b_k ] \subset [a_{k-1}$ , $b_{k-1} ]$ e $|b_k - a_k | = \frac{1}{2}|b_{k-1} - a_{k-1} |$. 
+L'algoritmo genera una successione di intervalli $[a_k , b_k]$ con $f (a_k ) \cdot f (b_k ) < 0$ e tale che:
+
+\begin{itemize}
+    \item $[a_k , b_k ] \subset [a_{k-1}$ , $b_{k-1} ]$ e
+    \item $|b_k - a_k | = \frac{1}{2}|b_{k-1} - a_{k-1}|$.
+\end{itemize}
 
 Date due tolleranze $\epsilon_1$ , $\epsilon_2$ , l’algoritmo si arresta quando:
 
